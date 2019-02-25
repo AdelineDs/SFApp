@@ -27,6 +27,7 @@ class FilmDetail extends React.Component {
 
   constructor(props) {
     super(props)
+    this.frenchFormat = "00/00/00"
     this.state = {
       film: undefined,
       isLoading: false
@@ -118,22 +119,20 @@ class FilmDetail extends React.Component {
   _test() {
     const { film } = this.state
     if (film != undefined) {
-      console.log("TEST ID = " + film.id); //ok donne bien l'id du film
       getFrenchReleaseDateFromApi(film.id).then(data => {
-          //console.log('TEST = ' + data.results[0].iso_3166_1);
           for(let key in data.results){
             if (data.results[key].iso_3166_1 === "FR") {
-              //console.log(moment(new Date(data.results[key].release_dates[0].release_date)).format('DD/MM/YYYY'))
                let frenchDate = data.results[key].release_dates[0].release_date
-               return frenchDate
+               this.frenchFormat = moment(new Date(frenchDate)).format('DD/MM/YYYY')
             }
           }
       })
-  }
+    }
   }
 
   _displayFilm() {
     const { film } = this.state
+    {this._test()}
     if (film != undefined) {
       return (
         <ScrollView style={styles.scrollview_container}>
@@ -148,8 +147,7 @@ class FilmDetail extends React.Component {
               {this._displayFavoriteImage()}
           </TouchableOpacity>
           <Text style={styles.description_text}>{film.overview}</Text>
-          <Text style={styles.default_text}>Sorti le {moment(new Date(film.release_date)).format('DD/MM/YYYY')}</Text>
-          <Text style={styles.default_text}>Sorti en France le {moment(new Date(this._test())).format('DD/MM/YYYY')}</Text>
+          <Text style={styles.default_text}>Sortie en France : le {this.frenchFormat}</Text>
           <Text style={styles.default_text}>Note : {film.vote_average} / 10</Text>
           <Text style={styles.default_text}>Nombre de votes : {film.vote_count}</Text>
           <Text style={styles.default_text}>Budget : {numeral(film.budget).format('0,0[.]00 $')}</Text>
@@ -191,7 +189,6 @@ class FilmDetail extends React.Component {
       <View style={styles.main_container}>
         {this._displayLoading()}
         {this._displayFilm()}
-        {this._displayFloatingActionButton()}
         {this._SeenButton()}
       </View>
     )
