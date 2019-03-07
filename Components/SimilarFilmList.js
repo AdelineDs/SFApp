@@ -16,7 +16,7 @@ class SimilarFilmList extends React.Component {
 
   _displayDetailForFilm = (idFilm) => {
     console.log("Display film :" + idFilm)
-    this.props.navigation.navigate('Detail', {idFilm: idFilm})
+    this.props.navigation.push('FilmDetail', {idFilm: idFilm})
   }
 
   render() {
