@@ -26,7 +26,7 @@ const FavoritesStackNavigator = createStackNavigator({
   Favorites: {
     screen: Favorites,
     navigationOptions: {
-      title: 'Favoris'
+      title: 'Mes Favoris'
     }
   },
   FilmDetail: {

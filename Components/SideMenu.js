@@ -43,7 +43,7 @@ class SideMenu extends Component {
                     </TouchableOpacity>
                     <TouchableOpacity >
                         <Text style={styles.sectionHeadingStyle}>
-                            
+
                         </Text>
                     </TouchableOpacity>
                 </ScrollView>

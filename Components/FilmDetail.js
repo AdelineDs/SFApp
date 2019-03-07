@@ -2,65 +2,76 @@
 
 import React from 'react'
 import { StyleSheet, View, Text, ActivityIndicator, ScrollView, Image, TouchableOpacity, Share, Alert, Platform, Button } from 'react-native'
-import { getFilmDetailFromApi, getImageFromApi, getFrenchReleaseDateFromApi } from '../API/TMDBApi'
+import { getFilmDetailFromApi, getImageFromApi, getFrenchReleaseDateFromApi, getSimilarFilmsFilmsFromApi } from '../API/TMDBApi'
 import moment from 'moment'
 import numeral from 'numeral'
 import { connect } from 'react-redux'
 import EnlargeShrink from '../Animations/EnlargeShrink'
+import SimilarFilmList from './SimilarFilmList'
 
 class FilmDetail extends React.Component {
 
-  static navigationOptions = ({ navigation }) => {
-      const { params } = navigation.state
-      if (params.film != undefined && Platform.OS === 'ios') {
-        return {
-            headerRight: <TouchableOpacity
-                            style={styles.share_touchable_headerrightbutton}
-                            onPress={() => params.shareFilm()}>
-                            <Image
-                              style={styles.share_image}
-                              source={require('../Images/ic_share.png')} />
-                          </TouchableOpacity>
-        }
-      }
-  }
+  // static navigationOptions = ({ navigation }) => {
+  //     const { params } = navigation.state
+  //     if (params.film != undefined && Platform.OS === 'ios') {
+  //       return {
+  //           headerRight: <TouchableOpacity
+  //                           style={styles.share_touchable_headerrightbutton}
+  //                           onPress={() => params.shareFilm()}>
+  //                           <Image
+  //                             style={styles.share_image}
+  //                             source={require('../Images/ic_share.png')} />
+  //                         </TouchableOpacity>
+  //       }
+  //     }
+  // }
+
+  _isMounted = false
 
   constructor(props) {
     super(props)
-    this.frenchFormat = "00/00/00"
+    this.frenchFormat = ""
+    this.page = 1
+    this.totalPage = 1
     this.state = {
+      films: [],
       film: undefined,
       isLoading: false
     }
     this._toggleFavorite = this._toggleFavorite.bind(this)
-    this._shareFilm = this._shareFilm.bind(this)
+    //this._shareFilm = this._shareFilm.bind(this)
     this._toggleSeen = this._toggleSeen.bind(this)
+    this._getSimilarFilms = this._getSimilarFilms.bind(this)
   }
+
 
   _updateNavigationParams() {
     this.props.navigation.setParams({
-      shareFilm: this._shareFilm,
+    /*  shareFilm: this._shareFilm, */
       film: this.state.film
     })
   }
 
   componentDidMount() {
+    this._isMounted = true
+    this._getSimilarFilms()
+
     const favoriteFilmIndex = this.props.favoritesFilm.findIndex(item => item.id === this.props.navigation.state.params.idFilm)
-    //const filmsSeenIndex = this.props.FilmsSeen.findIndex(item => item.id === this.props.navigation.state.params.idFilm)
     if (favoriteFilmIndex !== -1) {
-      this.setState({
-        film: this.props.favoritesFilm[favoriteFilmIndex]
-      }, () => { this._updateNavigationParams() })
-      return
+      if (this._isMounted) {
+        this.setState({
+          film: this.props.favoritesFilm[favoriteFilmIndex]
+        }, () => { this._updateNavigationParams() })
+        return
+      }
     }
-    this.setState({ isLoading: true })
-    getFilmDetailFromApi(this.props.navigation.state.params.idFilm).then(data => {
-      this.setState({
-        film: data,
-        isLoading: false
-      }, () => { this._updateNavigationParams() })
-    })
+
+    this._getFilmDetail()
   }
+
+  componentWillUnmount() {
+   this._isMounted = false;
+ }
 
   _displayLoading() {
     if (this.state.isLoading) {
@@ -70,6 +81,17 @@ class FilmDetail extends React.Component {
         </View>
       )
     }
+  }
+
+  _getFilmDetail(){
+    this.setState({ isLoading: true })
+    getFilmDetailFromApi(this.props.navigation.state.params.idFilm).then(data => {
+      if (this._isMounted) {
+        this.setState({
+          film: data
+        }, () => { this._updateNavigationParams() })
+      }
+    })
   }
 
   _toggleFavorite() {
@@ -116,7 +138,7 @@ class FilmDetail extends React.Component {
       }
     }
 
-  _test() {
+  _getFrenchDate() {
     const { film } = this.state
     if (film != undefined) {
       getFrenchReleaseDateFromApi(film.id).then(data => {
@@ -124,15 +146,45 @@ class FilmDetail extends React.Component {
             if (data.results[key].iso_3166_1 === "FR") {
                let frenchDate = data.results[key].release_dates[0].release_date
                this.frenchFormat = moment(new Date(frenchDate)).format('DD/MM/YYYY')
+               if (this._isMounted) {
+                 this.setState({ isLoading: false })
+               }
             }
           }
       })
     }
   }
 
+  _getSimilarFilms(){
+    getSimilarFilmsFilmsFromApi(this.props.navigation.state.params.idFilm).then(data => {
+      if (this._isMounted) {
+        this.setState({
+          films: [ ...this.state.films, ...data.results ]
+        })
+      }
+    })
+  }
+
+  _displaySimilarFilms(){
+    if (this.state.films.length != 0 ) {
+      return (
+        <View>
+          <Text style={styles.section_title}>Selection de films similaires : </Text>
+          <SimilarFilmList
+            films={this.state.films}
+            navigation={this.props.navigation}
+            loadFilms={this._getSimilarFilms}
+            page={this.page}
+            totalPages={this.totalPages}
+            favoriteList={false}
+          />
+        </View>
+      )
+    }
+  }
+
   _displayFilm() {
     const { film } = this.state
-    {this._test()}
     if (film != undefined) {
       return (
         <ScrollView style={styles.scrollview_container}>
@@ -159,11 +211,13 @@ class FilmDetail extends React.Component {
               return company.name;
             }).join(" / ")}
           </Text>
+          {this._displaySimilarFilms()}
         </ScrollView>
       )
     }
   }
 
+/* -----------------------
   _shareFilm() {
     const { film } = this.state
     Share.share({ title: film.title, message: film.overview })
@@ -183,11 +237,13 @@ class FilmDetail extends React.Component {
       )
     }
   }
+  ------------------------------ */
 
   render() {
     return (
       <View style={styles.main_container}>
         {this._displayLoading()}
+        {this._getFrenchDate()}
         {this._displayFilm()}
         {this._SeenButton()}
       </View>
@@ -214,6 +270,13 @@ const styles = StyleSheet.create({
   image: {
     height: 169,
     margin: 5
+  },
+  section_title: {
+    fontWeight: 'bold',
+    textAlign: 'center',
+    fontSize: 20,
+    margin: 10,
+    color: '#ab2635'
   },
   title_text: {
     fontWeight: 'bold',
@@ -267,7 +330,6 @@ const styles = StyleSheet.create({
   },
   seenButton: {
     zIndex: 1
-
   }
 })
 

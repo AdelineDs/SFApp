@@ -1,6 +1,6 @@
 // API/TMDBApi.js
 
-const API_TOKEN = "My_API_KEY";
+const API_TOKEN = "MY_API_TOKEN";
 
 export function getFilmsFromApiWithSearchedText (text, page) {
   const url = 'https://api.themoviedb.org/3/search/movie?api_key=' + API_TOKEN + '&language=fr&query=' + text + "&page=" + page
@@ -33,6 +33,18 @@ export function getUpcomingFilmsFromApi (page) {
 
 export function getFrenchReleaseDateFromApi (id) {
   return fetch('https://api.themoviedb.org/3/movie/' + id + '/release_dates?api_key=' + API_TOKEN)
+    .then((response) => response.json())
+    .catch((error) => console.error(error));
+}
+
+export function getSimilarFilmsFilmsFromApi (id) {
+  return fetch('https://api.themoviedb.org/3/movie/' + id + '/similar?api_key='+ API_TOKEN +'&language=fr-FR&page=1')
+    .then((response) => response.json())
+    .catch((error) => console.error(error));
+}
+
+export function getNowPlayingFilmsFromApi (page) {
+  return fetch('https://api.themoviedb.org/3/movie/now_playing?api_key='+ API_TOKEN +'&language=fr&page='+ page +'&region=Fr')
     .then((response) => response.json())
     .catch((error) => console.error(error));
 }

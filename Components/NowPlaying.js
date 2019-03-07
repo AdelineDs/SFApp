@@ -3,12 +3,12 @@
 import React from 'react';
 import { Text, ScrollView, StyleSheet, Button, TouchableOpacity, SafeAreaView, Image } from 'react-native'
 import FilmList from './FilmList'
-import { getUpcomingFilmsFromApi } from '../API/TMDBApi'
+import { getNowPlayingFilmsFromApi } from '../API/TMDBApi'
 
-class Home extends React.Component {
+class NowPlaying extends React.Component {
 
    static navigationOptions =  ({navigation}) => ({
-        headerTitle: "Accueil",
+        headerTitle: "",
         headerLeft: (
             <TouchableOpacity style={styles.menu_btn_left}
                 onPress={() => {navigation.openDrawer()}}
@@ -23,14 +23,17 @@ class Home extends React.Component {
         },
         headerRight: (
             <TouchableOpacity style={styles.menu_btn_right}
-                onPress={() => {navigation.navigate("NowPlaying")}}
+                onPress={() => {navigation.popToTop()}}
             >
               <Image
-                source={require('../Images/ic_movie_screen.png')}
+                source={require('../Images/ic_hour_glass.png')}
                 style={styles.icon}
               />
             </TouchableOpacity>),
   })
+
+  _isMounted = false
+
 
   constructor(props) {
     super(props)
@@ -45,24 +48,32 @@ class Home extends React.Component {
 
   componentDidMount() {
     this._loadFilms()
+    this._isMounted = true
+
   }
+
+  componentWillUnmount() {
+   this._isMounted = false;
+ }
 
   _loadFilms() {
     this.setState({ isLoading: true })
-    getUpcomingFilmsFromApi(this.page+1).then(data => {
+    getNowPlayingFilmsFromApi(this.page+1).then(data => {
         this.page = data.page
         this.totalPages = data.total_pages
-        this.setState({
-          films: [ ...this.state.films, ...data.results ],
-          isLoading: false
-        })
+        if (this._isMounted) {
+          this.setState({
+            films: [ ...this.state.films, ...data.results ],
+            isLoading: false
+          })
+        }
     })
   }
 
   render() {
     return (
       <ScrollView>
-        <Text style={styles.title}>Bientôt dans vos salles</Text>
+        <Text style={styles.title}>Actuellement dans vos salles</Text>
         <FilmList
           films={this.state.films}
           navigation={this.props.navigation}
@@ -103,4 +114,4 @@ const styles = StyleSheet.create({
 });
 
 
-export default Home;
+export default NowPlaying;
