@@ -112,7 +112,7 @@ class FilmDetail extends React.Component {
     var shouldEnlarge = false // Par défaut, si le film n'est pas en favoris, on veut qu'au clic sur le bouton, celui-ci s'agrandisse => shouldEnlarge à true
     if (this.props.favoritesFilm.findIndex(item => item.id === this.state.film.id) !== -1) {
       sourceImage = require('../Images/ic_favorite.png')
-      shouldEnlarge = true // Si le film est dans les favoris, on veut qu'au clic sur le bouton, celui-ci se rétrécisse => shouldEnlarge à false
+      //shouldEnlarge = true // Si le film est dans les favoris, on veut qu'au clic sur le bouton, celui-ci se rétrécisse => shouldEnlarge à false
     }
     return (
       <EnlargeShrink

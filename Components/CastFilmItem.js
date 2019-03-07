@@ -19,16 +19,26 @@ class CastFilmItem extends React.Component {
     }
   }
 
+  _displayImage() {
+    let sourceImage = {uri: getImageFromApi(this.props.cast.profile_path)}
+    if (this.props.cast.profile_path == null ) {
+      sourceImage = require('../Images/ic_person.png')
+    }
+    return(
+      <Image
+        style={styles.image}
+        source={sourceImage}
+      />
+    )
+  }
+
   render() {
     const { cast, displayDetailForFilm } = this.props
     return (
       <TouchableOpacity
         style={styles.main_container}
         onPress={() => {}}>
-        <Image
-          style={styles.image}
-          source={{uri: getImageFromApi(cast.profile_path)}}
-        />
+        {this._displayImage()}
         <View style={styles.content_container}>
           <Text style={styles.title_text} numberOfLines={1}>{cast.name}</Text>
 
@@ -40,7 +50,7 @@ class CastFilmItem extends React.Component {
 
 const styles = StyleSheet.create({
   main_container: {
-    height: 180,
+    height: 150,
     width: 120,
     flexDirection: 'column',
     alignItems: 'center',
