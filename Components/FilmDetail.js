@@ -2,12 +2,13 @@
 
 import React from 'react'
 import { StyleSheet, View, Text, ActivityIndicator, ScrollView, Image, TouchableOpacity, Share, Alert, Platform, Button } from 'react-native'
-import { getFilmDetailFromApi, getImageFromApi, getFrenchReleaseDateFromApi, getSimilarFilmsFilmsFromApi } from '../API/TMDBApi'
+import { getFilmDetailFromApi, getImageFromApi, getFrenchReleaseDateFromApi, getSimilarFilmsFilmsFromApi, getFilmCreditsFromAPI } from '../API/TMDBApi'
 import moment from 'moment'
 import numeral from 'numeral'
 import { connect } from 'react-redux'
 import EnlargeShrink from '../Animations/EnlargeShrink'
 import SimilarFilmList from './SimilarFilmList'
+import CastFilmList from './CastFilmList'
 
 class FilmDetail extends React.Component {
 
@@ -36,7 +37,8 @@ class FilmDetail extends React.Component {
     this.state = {
       films: [],
       film: undefined,
-      isLoading: false
+      isLoading: false,
+      cast: []
     }
     this._toggleFavorite = this._toggleFavorite.bind(this)
     //this._shareFilm = this._shareFilm.bind(this)
@@ -55,6 +57,7 @@ class FilmDetail extends React.Component {
   componentDidMount() {
     this._isMounted = true
     this._getSimilarFilms()
+    this._getFilmCredits()
 
     const favoriteFilmIndex = this.props.favoritesFilm.findIndex(item => item.id === this.props.navigation.state.params.idFilm)
     if (favoriteFilmIndex !== -1) {
@@ -157,12 +160,42 @@ class FilmDetail extends React.Component {
 
   _getSimilarFilms(){
     getSimilarFilmsFilmsFromApi(this.props.navigation.state.params.idFilm).then(data => {
+      //console.log('get similars' + data.results);
       if (this._isMounted) {
         this.setState({
           films: [ ...this.state.films, ...data.results ]
         })
       }
     })
+  }
+
+  _getFilmCredits(){
+    getFilmCreditsFromAPI(this.props.navigation.state.params.idFilm).then(data => {
+      //console.log('get film credits' + data.cast);
+      if (this._isMounted) {
+        this.setState({
+          cast: [ ...this.state.cast, ...data.cast ]
+        })
+      }
+    }
+    )
+  }
+
+  _displayFilmCast(){
+    console.log(this.state.cast.length);
+    if (this.state.cast.length != 0 ) {
+      return (
+        <View>
+          <Text style={styles.section_title}>Casting du film : </Text>
+          <CastFilmList
+            cast={this.state.cast}
+            navigation={this.props.navigation}
+            //loadFilms={this._getSimilarFilms}
+            favoriteList={false}
+          />
+        </View>
+      )
+    }
   }
 
   _displaySimilarFilms(){
@@ -211,6 +244,7 @@ class FilmDetail extends React.Component {
               return company.name;
             }).join(" / ")}
           </Text>
+          {this._displayFilmCast()}
           {this._displaySimilarFilms()}
         </ScrollView>
       )
