@@ -36,10 +36,23 @@ const NowPlayingStackNavigator = createStackNavigator({
   }
 })
 
+const DetailStackNavigator = createStackNavigator({
+  FilmDetail: {
+    screen: FilmDetail,
+    navigationOptions: {
+      title: 'FilmDetail'
+    }
+  },
+  Detail: {
+    screen: FilmDetail,
+  }
+})
+
 const StackNavigator = createStackNavigator({
   Home: HomeStackNavigator,
   NowPlaying: NowPlayingStackNavigator,
   Films: MoviesTabNavigator,
+  Detail: DetailStackNavigator
 },
 {
     headerMode: 'none',
