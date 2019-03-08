@@ -14,13 +14,12 @@ class TvList extends React.Component {
     }
   }
 
-  _displayDetailForTvShow = (idShow) => {
-    console.log("Display film :" + idShow)
-    this.props.navigation.navigate('TvDetail', {idFilm: idShow})
+  _displayDetailForTvShow = (idTvShow) => {
+    console.log("Display film :" + idTvShow)
+    this.props.navigation.navigate('TvShowDetail', {idTvShow: idTvShow})
   }
 
   render() {
-    console.log('id' + this.state.tvShows.length);
     return (
         <FlatList
           style={styles.list}

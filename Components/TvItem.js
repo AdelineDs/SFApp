@@ -22,7 +22,6 @@ class TvItem extends React.Component {
 
   render() {
     const { show, displayDetailForTvShow } = this.props
-    console.log('id' + show.id);
     return (
       <FadeIn>
         <TouchableOpacity
@@ -35,7 +34,7 @@ class TvItem extends React.Component {
           <View style={styles.content_container}>
             <View style={styles.header_container}>
               {this._displayFavoriteImage()}
-              <Text style={styles.title_text}>{show.title}</Text>
+              <Text style={styles.title_text}>{show.name}</Text>
               <Text style={styles.vote_text}>{show.vote_average}</Text>
             </View>
             <View style={styles.description_container}>

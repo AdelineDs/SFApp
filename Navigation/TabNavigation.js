@@ -1,4 +1,4 @@
-// Navigation/Navigations.js
+// Navigation/TabNavigations.js
 
 import React from 'react'
 import { StyleSheet, Image } from 'react-native'

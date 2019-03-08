@@ -2,6 +2,11 @@
 
 const API_TOKEN = "...";
 
+/*
+******
+MOVIES FUNCTIONS
+******
+*/
 export function getFilmsFromApiWithSearchedText (text, page) {
   const url = 'https://api.themoviedb.org/3/search/movie?api_key=' + API_TOKEN + '&language=fr&query=' + text + "&page=" + page
   return fetch(url)
@@ -55,9 +60,21 @@ export function getFilmCreditsFromAPI (id){
     .catch((error) => console.error(error));
 }
 
+/*
+******
+TV SHOWS FUNCTIONS
+******
+*/
+
 export function getTvShowFromApiWithSearchedText (text, page) {
   const url = 'https://api.themoviedb.org/3/search/tv?api_key=' + API_TOKEN + '&language=fr-FR&query=' + text + "&page=" + page
   return fetch(url)
     .then((response) => response.json())
     .catch((error) => console.error(error))
+}
+
+export function getTvShowDetailFromApi (id) {
+  return fetch('https://api.themoviedb.org/3/tv/' + id + '?api_key=' + API_TOKEN + '&language=fr-FR')
+    .then((response) => response.json())
+    .catch((error) => console.error(error));
 }

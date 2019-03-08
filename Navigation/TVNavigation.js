@@ -1,29 +1,30 @@
-// Navigation/Navigations.js
+// Navigation/TvNavigations.js
 
 import React from 'react'
 import { StyleSheet, Image } from 'react-native'
 import { createStackNavigator, createBottomTabNavigator, createAppContainer } from 'react-navigation'
-import TVSearch from '../Components/TVSearch'
-import TVDetail from '../Components/TVDetail'
-import FilmDetail from '../Components/FilmDetail'
+import TvShowSearch from '../Components/TvShowSearch'
+import TvShowDetail from '../Components/TvShowDetail'
 import Favorites from '../Components/Favorites'
 import News from '../Components/News'
 import FilmsSeen from '../Components/FilmsSeen'
-import Home from '../Components/Home'
 
-const TVSearchStackNavigator = createStackNavigator({
-  TVSearch: {
-    screen: TVSearch,
+const TvShowSearchStackNavigator = createStackNavigator({
+  TvShowSearch: {
+    screen: TvShowSearch,
     navigationOptions: {
       title: 'Rechercher une série'
     }
+  },
+  TvShowDetail: {
+    screen: TvShowDetail
   }
 })
 
-const TVTabNavigator = createBottomTabNavigator(
+const TvTabNavigator = createBottomTabNavigator(
   {
-    TVSearch: {
-      screen: TVSearchStackNavigator,
+    TvShowSearch: {
+      screen: TvShowSearchStackNavigator,
       navigationOptions: {
         tabBarIcon: () => {
           return <Image
@@ -50,4 +51,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default createAppContainer(TVTabNavigator)
+export default createAppContainer(TvTabNavigator)

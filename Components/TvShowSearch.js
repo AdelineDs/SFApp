@@ -6,7 +6,7 @@ import TvItem from './TvItem'
 import TvList from './TvList'
 import { getTvShowFromApiWithSearchedText } from '../API/TMDBApi'
 
-class TVSearch extends React.Component {
+class TvShowSearch extends React.Component {
 
   static navigationOptions =  ({navigation}) => ({
        headerTitle: "Rechercher une série",
@@ -40,7 +40,6 @@ class TVSearch extends React.Component {
     if (this.searchedText.length > 0) {
       this.setState({ isLoading: true })
       getTvShowFromApiWithSearchedText(this.searchedText, this.page+1).then(data => {
-        console.log('TEST TV SEARCH = ' + data.total_results)
           this.page = data.page
           this.totalPages = data.total_pages
           this.setState({
@@ -65,9 +64,9 @@ class TVSearch extends React.Component {
     })
   }
 
-  _displayDetailForTvShow = (idShow) => {
+  _displayDetailForTvShow = (idTvShow) => {
     console.log("Display Tv show with id " + idShow)
-    this.props.navigation.navigate("TvDetail", { idShow: idShow })
+    this.props.navigation.navigate("TvShowDetail", { idTvShow: idTvShow })
   }
 
   _displayLoading() {
@@ -81,7 +80,6 @@ class TVSearch extends React.Component {
   }
 
   render() {
-    console.log('TEST TV length = ' + this.state.tvShows.length)
     return (
       <View style={styles.main_container}>
         <TextInput
@@ -128,4 +126,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default TVSearch
+export default TvShowSearch
