@@ -140,7 +140,7 @@ class TvShowDetail extends React.Component {
   _displayTvShowStatus(){
     if (this.state.tvShow.in_production == true) {
       return(
-        <Text style={styles.default_text}>Série toujours en production</Text>
+        <Text style={styles.production_text}>(Toujours en production)</Text>
       )
     }
   }
@@ -155,7 +155,7 @@ class TvShowDetail extends React.Component {
             source={{uri: getImageFromApi(tvShow.backdrop_path)}}
           />
           <Text style={styles.title_text}>{tvShow.name}</Text>
-          <Text style={styles.default_text}>Série crée par {tvShow.created_by.map(function(create){
+          <Text style={styles.author_text}>Série crée par {tvShow.created_by.map(function(create){
             return create.name;
           })}</Text>
           {this._displayTvShowStatus()}
@@ -240,12 +240,20 @@ const styles = StyleSheet.create({
     marginLeft: 5,
     marginRight: 5,
     marginTop: 10,
-    marginBottom: 10,
+    marginBottom: 0,
     color: '#000000',
     textAlign: 'center'
   },
   favorite_container: {
     alignItems: 'center',
+  },
+  author_text: {
+    textAlign: 'center',
+  },
+  production_text: {
+    textAlign: 'center',
+    fontStyle: 'italic',
+    marginBottom: 10
   },
   description_text: {
     fontStyle: 'italic',
