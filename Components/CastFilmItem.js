@@ -80,9 +80,7 @@ const styles = StyleSheet.create({
   title_text: {
     fontWeight: 'bold',
     fontSize: 14,
-    flex: 1,
     flexWrap: 'wrap',
-    paddingRight: 5
   },
   text: {
     fontStyle: 'italic',

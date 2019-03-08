@@ -31,7 +31,7 @@ class SideMenu extends Component {
                         Gérer mes films
                     </Text>
                 </TouchableOpacity>
-                    <TouchableOpacity >
+                    <TouchableOpacity onPress={() => this.props.navigation.navigate("Tv")}>
                         <Text style={styles.sectionHeadingStyle}>
                             Gérer mes séries
                         </Text>

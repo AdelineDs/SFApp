@@ -11,6 +11,7 @@ import FilmsSeen from '../Components/FilmsSeen'
 import Home from '../Components/Home'
 import NowPlaying from '../Components/NowPlaying'
 import MoviesTabNavigator from './Navigation'
+import TVTabNavigator from './TVNavigation'
 
 const HomeStackNavigator = createStackNavigator({
   Home: {
@@ -40,6 +41,7 @@ const StackNavigator = createStackNavigator({
   Home: HomeStackNavigator,
   NowPlaying: NowPlayingStackNavigator,
   Films: MoviesTabNavigator,
+  Tv: TVTabNavigator
 },
 {
     headerMode: 'none',
