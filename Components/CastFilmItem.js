@@ -19,7 +19,7 @@ class CastFilmItem extends React.Component {
     }
   }
 
-  _displayImage() {
+  _displayCastImage() {
     let sourceImage = {uri: getImageFromApi(this.props.cast.profile_path)}
     if (this.props.cast.profile_path == null ) {
       sourceImage = require('../Images/ic_person.png')
@@ -32,16 +32,24 @@ class CastFilmItem extends React.Component {
     )
   }
 
+  _displayCharacter(){
+    if (this.props.cast.character != "") {
+      return (
+        <Text style={styles.text} numberOfLines={1}>({this.props.cast.character})</Text>
+      )
+    }
+  }
+
   render() {
     const { cast, displayDetailForFilm } = this.props
     return (
       <TouchableOpacity
         style={styles.main_container}
         onPress={() => {}}>
-        {this._displayImage()}
+        {this._displayCastImage()}
         <View style={styles.content_container}>
           <Text style={styles.title_text} numberOfLines={1}>{cast.name}</Text>
-
+          {this._displayCharacter()}
         </View>
       </TouchableOpacity>
     )
@@ -50,7 +58,7 @@ class CastFilmItem extends React.Component {
 
 const styles = StyleSheet.create({
   main_container: {
-    height: 150,
+    height: 155,
     width: 120,
     flexDirection: 'column',
     alignItems: 'center',
@@ -71,10 +79,14 @@ const styles = StyleSheet.create({
   },
   title_text: {
     fontWeight: 'bold',
-    fontSize: 18,
+    fontSize: 14,
     flex: 1,
     flexWrap: 'wrap',
     paddingRight: 5
+  },
+  text: {
+    fontStyle: 'italic',
+    fontSize: 12,
   },
   favorite_image: {
     width: 25,

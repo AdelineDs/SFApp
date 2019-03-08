@@ -40,12 +40,12 @@ class SimilarFilmItem extends React.Component {
 
 const styles = StyleSheet.create({
   main_container: {
-    height: 180,
+    height: 150,
     width: 120,
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
-    
+
   },
   image: {
     width: 90,
@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
   },
   title_text: {
     fontWeight: 'bold',
-    fontSize: 18,
+    fontSize: 14,
     flex: 1,
     flexWrap: 'wrap',
     paddingRight: 5
