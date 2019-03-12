@@ -7,6 +7,8 @@ import moment from 'moment'
 import numeral from 'numeral'
 import { connect } from 'react-redux'
 import EnlargeShrink from '../Animations/EnlargeShrink'
+import SimilarTvShowList from './SimilarTvShowList'
+import CastList from './CastList'
 
 class TvShowDetail extends React.Component {
 
@@ -168,6 +170,20 @@ class TvShowDetail extends React.Component {
           </Text>
           <Text style={styles.default_text}>Note : {tvShow.vote_average}</Text>
           <Text style={styles.default_text}>Nombre de votes : {tvShow.vote_count}</Text>
+          <Text style={styles.section_title}>Casting : </Text>
+          <CastList
+            cast={tvShow.credits.cast}
+            navigation={this.props.navigation}
+            favoriteList={false}
+          />
+          <Text style={styles.section_title}>Selection de séries similaires : </Text>
+          <SimilarTvShowList
+            tvShows={tvShow.similar.results}
+            navigation={this.props.navigation}
+            page={this.page}
+            totalPages={this.totalPages}
+            favoriteList={false}
+          />
         </ScrollView>
       )
     }

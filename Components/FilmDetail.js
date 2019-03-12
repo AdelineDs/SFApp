@@ -8,7 +8,7 @@ import numeral from 'numeral'
 import { connect } from 'react-redux'
 import EnlargeShrink from '../Animations/EnlargeShrink'
 import SimilarFilmList from './SimilarFilmList'
-import CastFilmList from './CastFilmList'
+import CastList from './CastList'
 
 class FilmDetail extends React.Component {
 
@@ -171,7 +171,7 @@ class FilmDetail extends React.Component {
             }).join(" / ")}
           </Text>
           <Text style={styles.section_title}>Casting du film : </Text>
-          <CastFilmList
+          <CastList
             cast={film.credits.cast}
             navigation={this.props.navigation}
             favoriteList={false}

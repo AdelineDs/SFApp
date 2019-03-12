@@ -57,7 +57,7 @@ export function getTvShowFromApiWithSearchedText (text, page) {
 }
 
 export function getTvShowDetailFromApi (id) {
-  return fetch('https://api.themoviedb.org/3/tv/' + id + '?api_key=' + API_TOKEN + '&language=fr-FR')
+  return fetch('https://api.themoviedb.org/3/tv/' + id + '?api_key=' + API_TOKEN + '&language=fr-FR&append_to_response=credits,similar')
     .then((response) => response.json())
     .catch((error) => console.error(error));
 }

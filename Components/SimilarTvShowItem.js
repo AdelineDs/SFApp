@@ -2,10 +2,10 @@
 
 import React from 'react'
 import { StyleSheet, View, Text, Image, TouchableOpacity } from 'react-native'
-import { getImageFromApi, getFrenchReleaseDateFromApi } from '../API/TMDBApi'
+import { getImageFromApi } from '../API/TMDBApi'
 import moment from 'moment'
 
-class CastFilmItem extends React.Component {
+class SimilarTvShowItem extends React.Component {
 
   _displayFavoriteImage() {
     if (this.props.isFilmFavorite) {
@@ -19,37 +19,19 @@ class CastFilmItem extends React.Component {
     }
   }
 
-  _displayCastImage() {
-    let sourceImage = {uri: getImageFromApi(this.props.cast.profile_path)}
-    if (this.props.cast.profile_path == null ) {
-      sourceImage = require('../Images/ic_person.png')
-    }
-    return(
-      <Image
-        style={styles.image}
-        source={sourceImage}
-      />
-    )
-  }
-
-  _displayCharacter(){
-    if (this.props.cast.character != "") {
-      return (
-        <Text style={styles.text} numberOfLines={1}>({this.props.cast.character})</Text>
-      )
-    }
-  }
-
   render() {
-    const { cast, displayDetailForFilm } = this.props
+    const { tvShow, displayDetailForTvShow } = this.props
     return (
       <TouchableOpacity
         style={styles.main_container}
-        onPress={() => {}}>
-        {this._displayCastImage()}
+        onPress={() => displayDetailForTvShow(tvShow.id)}>
+        <Image
+          style={styles.image}
+          source={{uri: getImageFromApi(tvShow.poster_path)}}
+        />
         <View style={styles.content_container}>
-          <Text style={styles.title_text} numberOfLines={1}>{cast.name}</Text>
-          {this._displayCharacter()}
+          <Text style={styles.title_text} numberOfLines={1}>{tvShow.name}</Text>
+          {this._displayFavoriteImage()}
         </View>
       </TouchableOpacity>
     )
@@ -58,7 +40,7 @@ class CastFilmItem extends React.Component {
 
 const styles = StyleSheet.create({
   main_container: {
-    height: 155,
+    height: 150,
     width: 120,
     flexDirection: 'column',
     alignItems: 'center',
@@ -80,11 +62,9 @@ const styles = StyleSheet.create({
   title_text: {
     fontWeight: 'bold',
     fontSize: 14,
+    flex: 1,
     flexWrap: 'wrap',
-  },
-  text: {
-    fontStyle: 'italic',
-    fontSize: 12,
+    paddingRight: 5
   },
   favorite_image: {
     width: 25,
@@ -93,4 +73,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default CastFilmItem
+export default SimilarTvShowItem

@@ -2,10 +2,10 @@
 
 import React from 'react'
 import { StyleSheet, FlatList } from 'react-native'
-import CastFilmItem from './CastFilmItem'
+import CastItem from './CastItem'
 import { connect } from 'react-redux'
 
-class CastFilmList extends React.Component {
+class CastList extends React.Component {
 
   constructor(props) {
     super(props)
@@ -28,7 +28,7 @@ class CastFilmList extends React.Component {
           horizontal={true}
           keyExtractor={(item) => item.id.toString()}
           renderItem={({item}) => (
-            <CastFilmItem
+            <CastItem
               cast={item}
               isFilmFavorite={(this.props.favoritesFilm.findIndex(film => film.id === item.id) !== -1) ? true : false} // Bonus pour différencier les films déjà présent dans notre state global et qui n'ont donc pas besoin d'être récupérés depuis l'API
               displayDetailForFilm={this._displayDetailForFilm}
@@ -57,4 +57,4 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps)(CastFilmList)
+export default connect(mapStateToProps)(CastList)
