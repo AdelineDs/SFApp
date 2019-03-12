@@ -2,7 +2,7 @@
 
 import React from 'react'
 import { StyleSheet, View, Text, ActivityIndicator, ScrollView, Image, TouchableOpacity, Share, Alert, Platform, Button } from 'react-native'
-import { getFilmDetailFromApi, getImageFromApi, getFrenchReleaseDateFromApi, getSimilarFilmsFilmsFromApi, getFilmCreditsFromAPI } from '../API/TMDBApi'
+import { getFilmDetailFromApi, getImageFromApi } from '../API/TMDBApi'
 import moment from 'moment'
 import numeral from 'numeral'
 import { connect } from 'react-redux'
@@ -31,19 +31,16 @@ class FilmDetail extends React.Component {
 
   constructor(props) {
     super(props)
-    this.frenchFormat = "NC"
     this.page = 1
     this.totalPage = 1
     this.state = {
       films: [],
       film: undefined,
       isLoading: false,
-      cast: []
     }
     this._toggleFavorite = this._toggleFavorite.bind(this)
     //this._shareFilm = this._shareFilm.bind(this)
     this._toggleSeen = this._toggleSeen.bind(this)
-    this._getSimilarFilms = this._getSimilarFilms.bind(this)
   }
 
 
@@ -56,8 +53,6 @@ class FilmDetail extends React.Component {
 
   componentDidMount() {
     this._isMounted = true
-    this._getSimilarFilms()
-    this._getFilmCredits()
 
     const favoriteFilmIndex = this.props.favoritesFilm.findIndex(item => item.id === this.props.navigation.state.params.idFilm)
     if (favoriteFilmIndex !== -1) {
@@ -91,7 +86,8 @@ class FilmDetail extends React.Component {
     getFilmDetailFromApi(this.props.navigation.state.params.idFilm).then(data => {
       if (this._isMounted) {
         this.setState({
-          film: data
+          film: data,
+          isLoading: false
         }, () => { this._updateNavigationParams() })
       }
     })
@@ -141,81 +137,6 @@ class FilmDetail extends React.Component {
       }
     }
 
-  _displayFrenchDate() {
-    const { film } = this.state
-    if (film != undefined) {
-      getFrenchReleaseDateFromApi(film.id).then(data => {
-          for(let key in data.results){
-            if (data.results[key].iso_3166_1 === "FR") {
-               let frenchDate = data.results[key].release_dates[0].release_date
-               this.frenchFormat = moment(new Date(frenchDate)).format('DD/MM/YYYY')
-            }
-          }
-          if (this._isMounted) {
-            this.setState({ isLoading: false })
-          }
-      })
-      return(
-        <Text style={styles.default_text}>Sortie en France : {this.frenchFormat}</Text>
-      )
-    }
-  }
-
-  _getSimilarFilms(){
-    getSimilarFilmsFilmsFromApi(this.props.navigation.state.params.idFilm).then(data => {
-      if (this._isMounted) {
-        this.setState({
-          films: [ ...this.state.films, ...data.results ]
-        })
-      }
-    })
-  }
-
-  _getFilmCredits(){
-    getFilmCreditsFromAPI(this.props.navigation.state.params.idFilm).then(data => {
-      if (this._isMounted) {
-        this.setState({
-          cast: [ ...this.state.cast, ...data.cast ]
-        })
-      }
-    }
-    )
-  }
-
-  _displayFilmCast(){
-    if (this.state.cast.length != 0 ) {
-      return (
-        <View>
-          <Text style={styles.section_title}>Casting du film : </Text>
-          <CastFilmList
-            cast={this.state.cast}
-            navigation={this.props.navigation}
-            //loadFilms={this._getSimilarFilms}
-            favoriteList={false}
-          />
-        </View>
-      )
-    }
-  }
-
-  _displaySimilarFilms(){
-    if (this.state.films.length != 0 ) {
-      return (
-        <View>
-          <Text style={styles.section_title}>Selection de films similaires : </Text>
-          <SimilarFilmList
-            films={this.state.films}
-            navigation={this.props.navigation}
-            loadFilms={this._getSimilarFilms}
-            page={this.page}
-            totalPages={this.totalPages}
-            favoriteList={false}
-          />
-        </View>
-      )
-    }
-  }
-
   _displayFilm() {
     const { film } = this.state
     if (film != undefined) {
@@ -232,7 +153,12 @@ class FilmDetail extends React.Component {
               {this._displayFavoriteImage()}
           </TouchableOpacity>
           <Text style={styles.description_text}>{film.overview}</Text>
-          {this._displayFrenchDate()}
+          <Text style={styles.default_text}>Sortie en France : {film.release_dates.results.map(function(result){
+            if (result.iso_3166_1 == "FR") {
+              let frenchDate = result.release_dates[0].release_date
+              return moment(new Date(frenchDate)).format('DD/MM/YYYY')
+            }
+          })}</Text>
           <Text style={styles.default_text}>Note : {film.vote_average} / 10</Text>
           <Text style={styles.default_text}>Nombre de votes : {film.vote_count}</Text>
           <Text style={styles.default_text}>Budget : {numeral(film.budget).format('0,0[.]00 $')}</Text>
@@ -244,8 +170,20 @@ class FilmDetail extends React.Component {
               return company.name;
             }).join(" / ")}
           </Text>
-          {this._displayFilmCast()}
-          {this._displaySimilarFilms()}
+          <Text style={styles.section_title}>Casting du film : </Text>
+          <CastFilmList
+            cast={film.credits.cast}
+            navigation={this.props.navigation}
+            favoriteList={false}
+          />
+          <Text style={styles.section_title}>Selection de films similaires : </Text>
+          <SimilarFilmList
+            films={film.similar.results}
+            navigation={this.props.navigation}
+            page={this.page}
+            totalPages={this.totalPages}
+            favoriteList={false}
+          />
         </ScrollView>
       )
     }

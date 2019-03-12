@@ -15,7 +15,7 @@ export function getFilmsFromApiWithSearchedText (text, page) {
 }
 
 export function getFilmDetailFromApi (id) {
-  return fetch('https://api.themoviedb.org/3/movie/' + id + '?api_key=' + API_TOKEN + '&language=fr')
+  return fetch('https://api.themoviedb.org/3/movie/' + id + '?api_key=' + API_TOKEN + '&language=fr&append_to_response=credits,release_dates,similar')
     .then((response) => response.json())
     .catch((error) => console.error(error));
 }
@@ -36,26 +36,9 @@ export function getUpcomingFilmsFromApi (page) {
     .catch((error) => console.error(error));
 }
 
-export function getFrenchReleaseDateFromApi (id) {
-  return fetch('https://api.themoviedb.org/3/movie/' + id + '/release_dates?api_key=' + API_TOKEN)
-    .then((response) => response.json())
-    .catch((error) => console.error(error));
-}
-
-export function getSimilarFilmsFilmsFromApi (id) {
-  return fetch('https://api.themoviedb.org/3/movie/' + id + '/similar?api_key='+ API_TOKEN +'&language=fr-FR&page=1')
-    .then((response) => response.json())
-    .catch((error) => console.error(error));
-}
 
 export function getNowPlayingFilmsFromApi (page) {
   return fetch('https://api.themoviedb.org/3/movie/now_playing?api_key='+ API_TOKEN +'&language=fr&page='+ page +'&region=Fr')
-    .then((response) => response.json())
-    .catch((error) => console.error(error));
-}
-
-export function getFilmCreditsFromAPI (id){
-  return fetch('https://api.themoviedb.org/3/movie/' + id + '/credits?api_key=' + API_TOKEN)
     .then((response) => response.json())
     .catch((error) => console.error(error));
 }
