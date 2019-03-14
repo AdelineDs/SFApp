@@ -9,7 +9,7 @@ import moment from 'moment'
 class TvItem extends React.Component {
 
   _displayFavoriteImage() {
-    if (this.props.isFilmFavorite) {
+    if (this.props.isTvShowFavorite) {
       // Si la props isFilmFavorite vaut true, on affiche le 🖤
       return (
         <Image

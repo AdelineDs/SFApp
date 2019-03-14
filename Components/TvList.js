@@ -24,12 +24,12 @@ class TvList extends React.Component {
         <FlatList
           style={styles.list}
           data={this.props.tvShows}
-          //extraData={this.props.favoritesFilm}
+          extraData={this.props.favoritesTvShow}
           keyExtractor={(item) => item.id.toString()}
           renderItem={({item}) => (
             <TvItem
               show={item}
-              //isFilmFavorite={(this.props.favoritesFilm.findIndex(film => film.id === item.id) !== -1) ? true : false} // Bonus pour différencier les films déjà présent dans notre state global et qui n'ont donc pas besoin d'être récupérés depuis l'API
+              isTvShowFavorite={(this.props.favoritesTvShow.findIndex(film => film.id === item.id) !== -1) ? true : false} // Bonus pour différencier les films déjà présent dans notre state global et qui n'ont donc pas besoin d'être récupérés depuis l'API
               displayDetailForTvShow={this._displayDetailForTvShow}
             />
           )}
@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => {
   return {
-    favoritesFilm: state.toggleFavorite.favoritesFilm
+    favoritesTvShow: state.toggleFavoriteTvShow.favoritesTvShow
   }
 }
 

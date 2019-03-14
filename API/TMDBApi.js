@@ -15,7 +15,7 @@ export function getFilmsFromApiWithSearchedText (text, page) {
 }
 
 export function getFilmDetailFromApi (id) {
-  return fetch('https://api.themoviedb.org/3/movie/' + id + '?api_key=' + API_TOKEN + '&language=fr&append_to_response=credits,release_dates,similar')
+  return fetch('https://api.themoviedb.org/3/movie/' + id + '?api_key=' + API_TOKEN + '&language=fr&append_to_response=credits,release_dates,similar,images,keywords,videos')
     .then((response) => response.json())
     .catch((error) => console.error(error));
 }
@@ -57,7 +57,7 @@ export function getTvShowFromApiWithSearchedText (text, page) {
 }
 
 export function getTvShowDetailFromApi (id) {
-  return fetch('https://api.themoviedb.org/3/tv/' + id + '?api_key=' + API_TOKEN + '&language=fr-FR&append_to_response=credits,similar')
+  return fetch('https://api.themoviedb.org/3/tv/' + id + '?api_key=' + API_TOKEN + '&language=fr-FR&append_to_response=credits,similar,images,videos,keywords')
     .then((response) => response.json())
     .catch((error) => console.error(error));
 }

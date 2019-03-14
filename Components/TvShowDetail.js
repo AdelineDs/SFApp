@@ -38,7 +38,7 @@ class TvShowDetail extends React.Component {
       tvShow: undefined,
       isLoading: false,
     }
-    this._toggleFavorite = this._toggleFavorite.bind(this)
+    this._toggleFavoriteTvShow = this._toggleFavoriteTvShow.bind(this)
     //this._shareTvShow = this._shareTvShow.bind(this)
     this._toggleSeen = this._toggleSeen.bind(this)
   }
@@ -83,7 +83,6 @@ class TvShowDetail extends React.Component {
 
   _getTvShowDetail(){
     this.setState({ isLoading: true })
-    console.log('test ID : ' + this.props.navigation.state.params.idTvShow);
     getTvShowDetailFromApi(this.props.navigation.state.params.idTvShow).then(data => {
       if (this._isMounted) {
           console.log(data);
@@ -95,7 +94,7 @@ class TvShowDetail extends React.Component {
     })
   }
 
-  _toggleFavorite() {
+  _toggleFavoriteTvShow() {
     const action = { type: "TOGGLE_FAVORITE", value: this.state.tvShow }
     this.props.dispatch(action)
   }
@@ -105,23 +104,23 @@ class TvShowDetail extends React.Component {
     this.props.dispatch(action)
   }
 
-  // _displayFavoriteImage() {
-  //   var sourceImage = require('../Images/ic_favorite_border.png')
-  //   var shouldEnlarge = false // Par défaut, si le tvShow n'est pas en favoris, on veut qu'au clic sur le bouton, celui-ci s'agrandisse => shouldEnlarge à true
-  //   if (this.props.favoritesTvShow.findIndex(item => item.id === this.state.tvShow.id) !== -1) {
-  //     sourceImage = require('../Images/ic_favorite.png')
-  //     //shouldEnlarge = true // Si le tvShow est dans les favoris, on veut qu'au clic sur le bouton, celui-ci se rétrécisse => shouldEnlarge à false
-  //   }
-  //   return (
-  //     <EnlargeShrink
-  //       shouldEnlarge={shouldEnlarge}>
-  //       <Image
-  //         style={styles.favorite_image}
-  //         source={sourceImage}
-  //       />
-  //     </EnlargeShrink>
-  //   )
-  // }
+  _displayFavoriteImage() {
+    var sourceImage = require('../Images/ic_favorite_border.png')
+    var shouldEnlarge = false // Par défaut, si le tvShow n'est pas en favoris, on veut qu'au clic sur le bouton, celui-ci s'agrandisse => shouldEnlarge à true
+    if (this.props.favoritesTvShow.findIndex(item => item.id === this.state.tvShow.id) !== -1) {
+      sourceImage = require('../Images/ic_favorite.png')
+      //shouldEnlarge = true // Si le tvShow est dans les favoris, on veut qu'au clic sur le bouton, celui-ci se rétrécisse => shouldEnlarge à false
+    }
+    return (
+      <EnlargeShrink
+        shouldEnlarge={shouldEnlarge}>
+        <Image
+          style={styles.favorite_image}
+          source={sourceImage}
+        />
+      </EnlargeShrink>
+    )
+  }
 
   // _SeenButton() {
   //   const { tvShow } = this.state
@@ -161,6 +160,11 @@ class TvShowDetail extends React.Component {
             return create.name;
           })}</Text>
           {this._displayTvShowStatus()}
+          <TouchableOpacity
+              style={styles.favorite_container}
+              onPress={() => this._toggleFavoriteTvShow()}>
+              {this._displayFavoriteImage()}
+          </TouchableOpacity>
           <Text style={styles.description_text}>{tvShow.overview}</Text>
           <Text style={styles.default_text}>Nombre de saisons : {tvShow.number_of_seasons}</Text>
           <Text style={styles.default_text}>Nombre d'épisodes : {tvShow.number_of_episodes}</Text>
@@ -314,8 +318,8 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state) => {
   return {
-    favoritesTvShow: state.toggleFavorite.favoritesTvShow,
-    TvShowsSeen: state.toggleSeen.TvShowsSeen
+    favoritesTvShow: state.toggleFavoriteTvShow.favoritesTvShow,
+    //TvShowsSeen: state.toggleSeenTvShow.TvShowsSeen
   }
 }
 

@@ -55,7 +55,8 @@ class FilmDetail extends React.Component {
     this._isMounted = true
 
     const favoriteFilmIndex = this.props.favoritesFilm.findIndex(item => item.id === this.props.navigation.state.params.idFilm)
-    if (favoriteFilmIndex !== -1) {
+    if (favoriteFilmIndex !== -1) { // Film déjà dans nos favoris, on a déjà son détail
+      // Pas besoin d'appeler l'API ici, on ajoute le détail stocké dans notre state global au state de notre component
       if (this._isMounted) {
         this.setState({
           film: this.props.favoritesFilm[favoriteFilmIndex]
@@ -63,7 +64,8 @@ class FilmDetail extends React.Component {
         return
       }
     }
-
+    // Le film n'est pas dans nos favoris, on n'a pas son détail
+    // On appelle l'API pour récupérer son détail
     this._getFilmDetail()
   }
 
@@ -121,6 +123,18 @@ class FilmDetail extends React.Component {
     )
   }
 
+  _displayFrenchReleaseDate(){
+    this.state.film.release_dates.results.map(function(result){
+      if (result.iso_3166_1 == "FR") {
+        let frenchDate = result.release_dates[0].release_date
+        return (
+          <View>
+          <Text style={styles.default_text}>Sortie en France : {moment(new Date(frenchDate)).format('DD/MM/YYYY')}</Text>
+          </View>
+        )
+      }
+    })}
+
   _SeenButton() {
     const { film } = this.state
       if (film != undefined) {
@@ -153,12 +167,7 @@ class FilmDetail extends React.Component {
               {this._displayFavoriteImage()}
           </TouchableOpacity>
           <Text style={styles.description_text}>{film.overview}</Text>
-          <Text style={styles.default_text}>Sortie en France : {film.release_dates.results.map(function(result){
-            if (result.iso_3166_1 == "FR") {
-              let frenchDate = result.release_dates[0].release_date
-              return moment(new Date(frenchDate)).format('DD/MM/YYYY')
-            }
-          })}</Text>
+          {this._displayFrenchReleaseDate()}
           <Text style={styles.default_text}>Note : {film.vote_average} / 10</Text>
           <Text style={styles.default_text}>Nombre de votes : {film.vote_count}</Text>
           <Text style={styles.default_text}>Budget : {numeral(film.budget).format('0,0[.]00 $')}</Text>

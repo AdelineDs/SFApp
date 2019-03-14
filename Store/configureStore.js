@@ -2,6 +2,7 @@
 
 import { createStore } from 'redux'
 import toggleFavorite from './Reducers/favoriteReducer'
+import toggleFavoriteTvShow from './Reducers/favoriteTvShowReducer'
 import setAvatar from './Reducers/avatarReducer'
 import toggleSeen from './Reducers/filmsSeenReducer'
 import { persistCombineReducers } from 'redux-persist'
@@ -12,4 +13,4 @@ const rootPersistConfig = {
   storage: storage
 }
 
-export default createStore(persistCombineReducers(rootPersistConfig, {toggleFavorite, setAvatar, toggleSeen}))
+export default createStore(persistCombineReducers(rootPersistConfig, {toggleFavorite, setAvatar, toggleSeen, toggleFavoriteTvShow}))
