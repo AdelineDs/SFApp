@@ -26,7 +26,7 @@ class Home extends React.Component {
                 onPress={() => {navigation.navigate("NowPlaying")}}
             >
               <Image
-                source={require('../Images/ic_movie_screen.png')}
+                source={require('../Images/ic_tickets.png')}
                 style={styles.icon}
               />
             </TouchableOpacity>),

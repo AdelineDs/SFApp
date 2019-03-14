@@ -5,7 +5,7 @@ const initialState = { favoritesTvShow: [] }
 function toggleFavoriteTvShow(state = initialState, action) {
   let nextState
   switch (action.type) {
-    case 'TOGGLE_FAVORITE':
+    case 'TOGGLE_FAVORITE_TVSHOW':
       const favoriteTvShowIndex = state.favoritesTvShow.findIndex(item => item.id === action.value.id)
       if (favoriteTvShowIndex !== -1) {
         // La serie est déjà dans les favoris, on la supprime de la liste

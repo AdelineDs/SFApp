@@ -9,6 +9,7 @@ import { connect } from 'react-redux'
 import EnlargeShrink from '../Animations/EnlargeShrink'
 import SimilarTvShowList from './SimilarTvShowList'
 import CastList from './CastList'
+import SeasonsList from './SeasonsList'
 
 class TvShowDetail extends React.Component {
 
@@ -95,7 +96,7 @@ class TvShowDetail extends React.Component {
   }
 
   _toggleFavoriteTvShow() {
-    const action = { type: "TOGGLE_FAVORITE", value: this.state.tvShow }
+    const action = { type: "TOGGLE_FAVORITE_TVSHOW", value: this.state.tvShow }
     this.props.dispatch(action)
   }
 
@@ -108,7 +109,7 @@ class TvShowDetail extends React.Component {
     var sourceImage = require('../Images/ic_favorite_border.png')
     var shouldEnlarge = false // Par défaut, si le tvShow n'est pas en favoris, on veut qu'au clic sur le bouton, celui-ci s'agrandisse => shouldEnlarge à true
     if (this.props.favoritesTvShow.findIndex(item => item.id === this.state.tvShow.id) !== -1) {
-      sourceImage = require('../Images/ic_favorite.png')
+      sourceImage = require('../Images/ic_heart_red.png')
       //shouldEnlarge = true // Si le tvShow est dans les favoris, on veut qu'au clic sur le bouton, celui-ci se rétrécisse => shouldEnlarge à false
     }
     return (
@@ -146,6 +147,18 @@ class TvShowDetail extends React.Component {
     }
   }
 
+  _displayTvShowSeasons(){
+    this.state.tvShow.seasons.map(function(season){
+      console.log(season.name + " " + season.episode_count);
+        return (
+          <View>
+            <Text style={styles.default_text}>Saison : {season.name}</Text>
+            <Text style={styles.default_text}>Nombre d'épisodes : {season.episode_count}</Text>
+          </View>
+        )
+      }).join(" ")
+  }
+
   _displayTvShow() {
     const { tvShow } = this.state
     if (tvShow != undefined) {
@@ -174,6 +187,12 @@ class TvShowDetail extends React.Component {
           </Text>
           <Text style={styles.default_text}>Note : {tvShow.vote_average}</Text>
           <Text style={styles.default_text}>Nombre de votes : {tvShow.vote_count}</Text>
+          <Text style={styles.section_title}>Saisons : </Text>
+          <SeasonsList
+            seasons={tvShow.seasons}
+            navigation={this.props.navigation}
+            favoriteList={false}
+          />
           <Text style={styles.section_title}>Casting : </Text>
           <CastList
             cast={tvShow.credits.cast}

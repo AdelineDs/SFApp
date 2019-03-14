@@ -26,7 +26,7 @@ class NowPlaying extends React.Component {
                 onPress={() => {navigation.popToTop()}}
             >
               <Image
-                source={require('../Images/ic_hour_glass.png')}
+                source={require('../Images/ic_sablier.png')}
                 style={styles.icon}
               />
             </TouchableOpacity>),
