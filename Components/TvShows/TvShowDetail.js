@@ -2,13 +2,13 @@
 
 import React from 'react'
 import { StyleSheet, View, Text, ActivityIndicator, ScrollView, Image, TouchableOpacity, Share, Alert, Platform, Button } from 'react-native'
-import { getTvShowDetailFromApi, getImageFromApi } from '../API/TMDBApi'
+import { getTvShowDetailFromApi, getImageFromApi } from '../../API/TMDBApi'
 import moment from 'moment'
 import numeral from 'numeral'
 import { connect } from 'react-redux'
-import EnlargeShrink from '../Animations/EnlargeShrink'
+import EnlargeShrink from '../../Animations/EnlargeShrink'
 import SimilarTvShowList from './SimilarTvShowList'
-import CastList from './CastList'
+import CastList from '../CastList'
 import SeasonsList from './SeasonsList'
 
 class TvShowDetail extends React.Component {
@@ -106,10 +106,10 @@ class TvShowDetail extends React.Component {
   }
 
   _displayFavoriteImage() {
-    var sourceImage = require('../Images/ic_favorite_border.png')
+    var sourceImage = require('../../Images/ic_favorite_border.png')
     var shouldEnlarge = false // Par défaut, si le tvShow n'est pas en favoris, on veut qu'au clic sur le bouton, celui-ci s'agrandisse => shouldEnlarge à true
     if (this.props.favoritesTvShow.findIndex(item => item.id === this.state.tvShow.id) !== -1) {
-      sourceImage = require('../Images/ic_heart_red.png')
+      sourceImage = require('../../Images/ic_heart_red.png')
       //shouldEnlarge = true // Si le tvShow est dans les favoris, on veut qu'au clic sur le bouton, celui-ci se rétrécisse => shouldEnlarge à false
     }
     return (

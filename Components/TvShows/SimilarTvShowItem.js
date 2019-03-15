@@ -2,7 +2,7 @@
 
 import React from 'react'
 import { StyleSheet, View, Text, Image, TouchableOpacity } from 'react-native'
-import { getImageFromApi } from '../API/TMDBApi'
+import { getImageFromApi } from '../../API/TMDBApi'
 import moment from 'moment'
 
 class SimilarTvShowItem extends React.Component {
@@ -13,7 +13,7 @@ class SimilarTvShowItem extends React.Component {
       return (
         <Image
           style={styles.favorite_image}
-          source={require('../Images/ic_favorite.png')}
+          source={require('../../Images/ic_favorite.png')}
         />
       )
     }

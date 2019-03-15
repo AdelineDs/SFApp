@@ -4,7 +4,7 @@ import React from 'react'
 import { StyleSheet, View, TextInput, Button, Text, FlatList, ActivityIndicator, TouchableOpacity, Image } from 'react-native'
 import TvItem from './TvItem'
 import TvList from './TvList'
-import { getTvShowFromApiWithSearchedText } from '../API/TMDBApi'
+import { getTvShowFromApiWithSearchedText } from '../../API/TMDBApi'
 
 class TvShowSearch extends React.Component {
 
@@ -15,7 +15,7 @@ class TvShowSearch extends React.Component {
                onPress={() => {navigation.openDrawer()}}
            >
              <Image
-               source={require('../Images/ic_menu.png')}
+               source={require('../../Images/ic_menu.png')}
                style={{width: 30, height: 30}}
              />
            </TouchableOpacity>),

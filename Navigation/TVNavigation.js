@@ -3,11 +3,11 @@
 import React from 'react'
 import { StyleSheet, Image } from 'react-native'
 import { createStackNavigator, createBottomTabNavigator, createAppContainer } from 'react-navigation'
-import TvShowSearch from '../Components/TvShowSearch'
-import TvShowDetail from '../Components/TvShowDetail'
-import Favorites from '../Components/Favorites'
-import News from '../Components/News'
-import FilmsSeen from '../Components/FilmsSeen'
+import TvShowSearch from '../Components/TvShows/TvShowSearch'
+import TvShowDetail from '../Components/TvShows/TvShowDetail'
+import Favorites from '../Components/Films/Favorites'
+import News from '../Components/Films/News'
+import FilmsSeen from '../Components/Films/FilmsSeen'
 
 const TvShowSearchStackNavigator = createStackNavigator({
   TvShowSearch: {

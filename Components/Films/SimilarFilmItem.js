@@ -2,7 +2,7 @@
 
 import React from 'react'
 import { StyleSheet, View, Text, Image, TouchableOpacity } from 'react-native'
-import { getImageFromApi, getFrenchReleaseDateFromApi } from '../API/TMDBApi'
+import { getImageFromApi, getFrenchReleaseDateFromApi } from '../../API/TMDBApi'
 import moment from 'moment'
 
 class SimilarFilmItem extends React.Component {
@@ -13,7 +13,7 @@ class SimilarFilmItem extends React.Component {
       return (
         <Image
           style={styles.favorite_image}
-          source={require('../Images/ic_favorite.png')}
+          source={require('../../Images/ic_favorite.png')}
         />
       )
     }

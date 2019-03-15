@@ -2,7 +2,7 @@
 
 import React from 'react'
 import { StyleSheet, View, Text, Image, TouchableOpacity } from 'react-native'
-import { getImageFromApi, getFrenchReleaseDateFromApi } from '../API/TMDBApi'
+import { getImageFromApi, getFrenchReleaseDateFromApi } from '../../API/TMDBApi'
 import moment from 'moment'
 
 class SeasonItem extends React.Component {
@@ -13,7 +13,7 @@ class SeasonItem extends React.Component {
       return (
         <Image
           style={styles.favorite_image}
-          source={require('../Images/ic_favorite.png')}
+          source={require('../../Images/ic_favorite.png')}
         />
       )
     }
@@ -22,7 +22,7 @@ class SeasonItem extends React.Component {
   _displayImage() {
     let sourceImage = {uri: getImageFromApi(this.props.season.poster_path)}
     if (this.props.season.poster_path == null ) {
-      sourceImage = require('../Images/ic_person.png')
+      sourceImage = require('../../Images/ic_person.png')
     }
     return(
       <Image
@@ -43,7 +43,7 @@ class SeasonItem extends React.Component {
           <Text style={styles.title_text} numberOfLines={1}>{season.name}</Text>
           <Text style={styles.text} numberOfLines={1}>{season.episode_count} épisodes</Text>
           <TouchableOpacity>
-            <Image style={styles.favorite_image} source={require('../Images/ic_share.png')}/>
+            <Image style={styles.check_image} source={require('../../Images/ic_check_white.png')}/>
           </TouchableOpacity>
         </View>
       </TouchableOpacity>
@@ -86,6 +86,10 @@ const styles = StyleSheet.create({
     width: 25,
     height: 25,
     marginRight: 5
+  },
+  check_image:{
+    width: 35,
+    height: 35
   }
 })
 

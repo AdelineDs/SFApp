@@ -3,7 +3,7 @@
 import React from 'react'
 import { TouchableOpacity, Image } from 'react-native'
 import FilmList from './FilmList'
-import { getBestFilmsFromApi } from '../API/TMDBApi'
+import { getBestFilmsFromApi } from '../../API/TMDBApi'
 
 class News extends React.Component {
 
@@ -14,7 +14,7 @@ class News extends React.Component {
                onPress={() => {navigation.openDrawer()}}
            >
              <Image
-               source={require('../Images/ic_menu.png')}
+               source={require('../../Images/ic_menu.png')}
                style={{width: 30, height: 30}}
              />
            </TouchableOpacity>),

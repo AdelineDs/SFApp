@@ -2,43 +2,46 @@
 
 import React from 'react'
 import { StyleSheet, View, Text, Image, TouchableOpacity } from 'react-native'
-import { getImageFromApi, getFrenchReleaseDateFromApi } from '../API/TMDBApi'
-import FadeIn from '../Animations/FadeIn'
+import { getImageFromApi, getFrenchReleaseDateFromApi } from '../../API/TMDBApi'
+import FadeIn from '../../Animations/FadeIn'
 import moment from 'moment'
 
-class TvItem extends React.Component {
+class FilmItem extends React.Component {
 
   _displayFavoriteImage() {
-    if (this.props.isTvShowFavorite) {
+    if (this.props.isFilmFavorite) {
       // Si la props isFilmFavorite vaut true, on affiche le 🖤
       return (
         <Image
           style={styles.favorite_image}
-          source={require('../Images/ic_heart_red.png')}
+          source={require('../../Images/ic_favorite.png')}
         />
       )
     }
   }
 
   render() {
-    const { show, displayDetailForTvShow } = this.props
+    const { film, displayDetailForFilm } = this.props
     return (
       <FadeIn>
         <TouchableOpacity
           style={styles.main_container}
-          onPress={() => displayDetailForTvShow(show.id)}>
+          onPress={() => displayDetailForFilm(film.id)}>
           <Image
             style={styles.image}
-            source={{uri: getImageFromApi(show.poster_path)}}
+            source={{uri: getImageFromApi(film.poster_path)}}
           />
           <View style={styles.content_container}>
             <View style={styles.header_container}>
               {this._displayFavoriteImage()}
-              <Text style={styles.title_text} numberOfLines={1}>{show.name}</Text>
-              <Text style={styles.vote_text}>{show.vote_average}</Text>
+              <Text style={styles.title_text}>{film.title}</Text>
+              <Text style={styles.vote_text}>{film.vote_average}</Text>
             </View>
             <View style={styles.description_container}>
-              <Text style={styles.description_text} numberOfLines={6}>{show.overview}</Text>
+              <Text style={styles.description_text} numberOfLines={6}>{film.overview}</Text>
+            </View>
+            <View style={styles.date_container}>
+              <Text style={styles.date_text}>Sorti le {moment(new Date(film.release_date)).format('DD/MM/YYYY')}</Text>
             </View>
             <View>
             </View>
@@ -100,4 +103,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default TvItem
+export default FilmItem

@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { Text, ScrollView, StyleSheet, Button, TouchableOpacity, SafeAreaView, Image } from 'react-native'
-import FilmList from './FilmList'
+import FilmList from './Films/FilmList'
 import { getUpcomingFilmsFromApi } from '../API/TMDBApi'
 
 class Home extends React.Component {

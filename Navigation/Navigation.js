@@ -3,11 +3,11 @@
 import React from 'react'
 import { StyleSheet, Image } from 'react-native'
 import { createStackNavigator, createBottomTabNavigator, createAppContainer } from 'react-navigation'
-import Search from '../Components/Search'
-import FilmDetail from '../Components/FilmDetail'
-import Favorites from '../Components/Favorites'
-import News from '../Components/News'
-import FilmsSeen from '../Components/FilmsSeen'
+import Search from '../Components/Films/Search'
+import FilmDetail from '../Components/Films/FilmDetail'
+import Favorites from '../Components/Films/Favorites'
+import News from '../Components/Films/News'
+import FilmsSeen from '../Components/Films/FilmsSeen'
 import Home from '../Components/Home'
 
 const SearchStackNavigator = createStackNavigator({

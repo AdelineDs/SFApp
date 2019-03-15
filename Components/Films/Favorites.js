@@ -4,7 +4,7 @@ import React from 'react'
 import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native'
 import FilmList from './FilmList'
 import { connect } from 'react-redux'
-import Avatar from './Avatar'
+import Avatar from '../Avatar'
 
 class Favorites extends React.Component {
 
@@ -15,7 +15,7 @@ class Favorites extends React.Component {
                onPress={() => {navigation.openDrawer()}}
            >
              <Image
-               source={require('../Images/ic_menu.png')}
+               source={require('../../Images/ic_menu.png')}
                style={{width: 30, height: 30}}
              />
            </TouchableOpacity>),

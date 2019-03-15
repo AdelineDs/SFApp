@@ -3,7 +3,7 @@
 import React from 'react';
 import { Text, ScrollView, StyleSheet, Button, TouchableOpacity, SafeAreaView, Image } from 'react-native'
 import FilmList from './FilmList'
-import { getNowPlayingFilmsFromApi } from '../API/TMDBApi'
+import { getNowPlayingFilmsFromApi } from '../../API/TMDBApi'
 
 class NowPlaying extends React.Component {
 
@@ -14,7 +14,7 @@ class NowPlaying extends React.Component {
                 onPress={() => {navigation.openDrawer()}}
             >
               <Image
-                source={require('../Images/ic_menu.png')}
+                source={require('../../Images/ic_menu.png')}
                 style={styles.icon}
               />
             </TouchableOpacity>),
@@ -26,7 +26,7 @@ class NowPlaying extends React.Component {
                 onPress={() => {navigation.popToTop()}}
             >
               <Image
-                source={require('../Images/ic_sablier.png')}
+                source={require('../../Images/ic_sablier.png')}
                 style={styles.icon}
               />
             </TouchableOpacity>),

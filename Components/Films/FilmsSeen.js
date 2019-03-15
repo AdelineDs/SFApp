@@ -14,7 +14,7 @@ class FilmsSeen extends React.Component {
                onPress={() => {navigation.openDrawer()}}
            >
              <Image
-               source={require('../Images/ic_menu.png')}
+               source={require('../../Images/ic_menu.png')}
                style={{width: 30, height: 30}}
              />
            </TouchableOpacity>),
