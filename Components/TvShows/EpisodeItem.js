@@ -2,10 +2,10 @@
 
 import React from 'react'
 import { StyleSheet, View, Text, Image, TouchableOpacity } from 'react-native'
-import { getImageFromApi, getFrenchReleaseDateFromApi } from '../../API/TMDBApi'
+import { getImageFromApi} from '../../API/TMDBApi'
 import moment from 'moment'
 
-class SeasonItem extends React.Component {
+class EpisodeItem extends React.Component {
 
   _displayFavoriteImage() {
     if (this.props.isFilmFavorite) {
@@ -20,8 +20,8 @@ class SeasonItem extends React.Component {
   }
 
   _displayImage() {
-    let sourceImage = {uri: getImageFromApi(this.props.season.poster_path)}
-    if (this.props.season.poster_path == null ) {
+    let sourceImage = {uri: getImageFromApi(this.props.episode.still_path)}
+    if (this.props.episode.still_path == null ) {
       sourceImage = require('../../Images/ic_image2.png')
     }
     return(
@@ -33,15 +33,15 @@ class SeasonItem extends React.Component {
   }
 
   render() {
-    const { season, displayDetailForSeason, idTvShow } = this.props
+    const { episode, displayDetailForEpisode, idTvShow, idSeason } = this.props
     return (
       <TouchableOpacity
         style={styles.main_container}
-        onPress={() => {displayDetailForSeason(idTvShow, season.season_number)}}>
+        onPress={() => {displayDetailForEpisode(idTvShow, idSeason, episode.episode_number)}}>
         {this._displayImage()}
         <View style={styles.content_container}>
-          <Text style={styles.title_text} numberOfLines={1}>{season.name}</Text>
-          <Text style={styles.text} numberOfLines={1}>{season.episode_count} épisodes</Text>
+          <Text style={styles.title_text} numberOfLines={1}>{episode.name}</Text>
+          <Text style={styles.text} numberOfLines={3}>{episode.overview}</Text>
           <TouchableOpacity>
             <Image style={styles.check_image} source={require('../../Images/ic_check_white.png')}/>
           </TouchableOpacity>
@@ -93,4 +93,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default SeasonItem
+export default EpisodeItem

@@ -14,9 +14,8 @@ class SeasonsList extends React.Component {
     }
   }
 
-  _displayDetailForFilm = (idFilm) => {
-    console.log("Display film :" + idFilm)
-    this.props.navigation.push('FilmDetail', {idFilm: idFilm})
+  _displayDetailForSeason = (idTvShow, idSeason) => {
+    this.props.navigation.push('SeasonDetail', {idTvShow: idTvShow, idSeason: idSeason})
   }
 
   render() {
@@ -24,13 +23,14 @@ class SeasonsList extends React.Component {
         <FlatList
           style={styles.list}
           data={this.props.seasons}
-          //extraData={this.props.favoritesFilm}
+          //extraData={this.props.idTvShow}
           keyExtractor={(item) => item.id.toString()}
           renderItem={({item}) => (
             <SeasonItem
               season={item}
               //isFilmFavorite={(this.props.favoritesFilm.findIndex(film => film.id === item.id) !== -1) ? true : false} // Bonus pour différencier les films déjà présent dans notre state global et qui n'ont donc pas besoin d'être récupérés depuis l'API
-              //displayDetailForFilm={this._displayDetailForFilm}
+              displayDetailForSeason={this._displayDetailForSeason}
+              idTvShow={this.props.idTvShow}
             />
           )}
           // onEndReachedThreshold={0.5}

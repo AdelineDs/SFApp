@@ -15,7 +15,7 @@ class TvList extends React.Component {
   }
 
   _displayDetailForTvShow = (idTvShow) => {
-    console.log("Display film :" + idTvShow)
+    console.log("Display série :" + idTvShow)
     this.props.navigation.navigate('TvShowDetail', {idTvShow: idTvShow})
   }
 

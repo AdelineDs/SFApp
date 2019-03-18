@@ -20,6 +20,19 @@ class TvItem extends React.Component {
     }
   }
 
+  _displayImage() {
+    let sourceImage = {uri: getImageFromApi(this.props.show.poster_path)}
+    if (this.props.show.poster_path == null ) {
+      sourceImage = require('../../Images/ic_image2.png')
+    }
+    return(
+      <Image
+        style={styles.image}
+        source={sourceImage}
+      />
+    )
+  }
+
   render() {
     const { show, displayDetailForTvShow } = this.props
     return (
@@ -27,10 +40,7 @@ class TvItem extends React.Component {
         <TouchableOpacity
           style={styles.main_container}
           onPress={() => displayDetailForTvShow(show.id)}>
-          <Image
-            style={styles.image}
-            source={{uri: getImageFromApi(show.poster_path)}}
-          />
+          {this._displayImage()}
           <View style={styles.content_container}>
             <View style={styles.header_container}>
               {this._displayFavoriteImage()}

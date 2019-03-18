@@ -8,6 +8,8 @@ import TvShowDetail from '../Components/TvShows/TvShowDetail'
 import Favorites from '../Components/Films/Favorites'
 import News from '../Components/Films/News'
 import FilmsSeen from '../Components/Films/FilmsSeen'
+import SeasonDetail from '../Components/TvShows/SeasonDetail'
+import EpisodeDetail from '../Components/TvShows/EpisodeDetail'
 
 const TvShowSearchStackNavigator = createStackNavigator({
   TvShowSearch: {
@@ -18,6 +20,12 @@ const TvShowSearchStackNavigator = createStackNavigator({
   },
   TvShowDetail: {
     screen: TvShowDetail
+  },
+  SeasonDetail: {
+    screen: SeasonDetail
+  },
+  EpisodeDetail: {
+    screen: EpisodeDetail
   }
 })
 

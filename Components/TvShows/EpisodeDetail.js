@@ -2,16 +2,14 @@
 
 import React from 'react'
 import { StyleSheet, View, Text, ActivityIndicator, ScrollView, Image, TouchableOpacity, Share, Alert, Platform, Button } from 'react-native'
-import { getTvShowDetailFromApi, getImageFromApi } from '../../API/TMDBApi'
+import { getEpisodeDetailFromApi, getImageFromApi } from '../../API/TMDBApi'
 import moment from 'moment'
 import numeral from 'numeral'
 import { connect } from 'react-redux'
 import EnlargeShrink from '../../Animations/EnlargeShrink'
-import SimilarTvShowList from './SimilarTvShowList'
 import CastList from '../CastList'
-import SeasonsList from './SeasonsList'
 
-class TvShowDetail extends React.Component {
+class EpisodeDetail extends React.Component {
 
   // static navigationOptions = ({ navigation }) => {
   //     const { params } = navigation.state
@@ -35,20 +33,20 @@ class TvShowDetail extends React.Component {
     this.page = 1
     this.totalPage = 1
     this.state = {
-      tvShows: [],
-      tvShow: undefined,
+      episodes: [],
+      episode: undefined,
       isLoading: false,
     }
-    this._toggleFavoriteTvShow = this._toggleFavoriteTvShow.bind(this)
+    //this._toggleFavoriteTvShow = this._toggleFavoriteTvShow.bind(this)
     //this._shareTvShow = this._shareTvShow.bind(this)
-    this._toggleSeen = this._toggleSeen.bind(this)
+    //this._toggleSeen = this._toggleSeen.bind(this)
   }
 
 
   _updateNavigationParams() {
     this.props.navigation.setParams({
     /*  shareTvShow: this._shareTvShow, */
-      tvShow: this.state.tvShow
+      episode: this.state.episode
     })
   }
 
@@ -65,7 +63,7 @@ class TvShowDetail extends React.Component {
     //   }
     // }
 
-    this._getTvShowDetail()
+    this._getEpisodeDetail()
   }
 
   componentWillUnmount() {
@@ -82,12 +80,13 @@ class TvShowDetail extends React.Component {
     }
   }
 
-  _getTvShowDetail(){
+  _getEpisodeDetail(){
     this.setState({ isLoading: true })
-    getTvShowDetailFromApi(this.props.navigation.state.params.idTvShow).then(data => {
+    getEpisodeDetailFromApi(this.props.navigation.state.params.idTvShow, this.props.navigation.state.params.idSeason, this.props.navigation.state.params.idEpisode).then(data => {
       if (this._isMounted) {
+        console.log(data);
         this.setState({
-          tvShow: data,
+          episode: data,
           isLoading: false
         }, () => { this._updateNavigationParams() })
       }
@@ -138,61 +137,23 @@ class TvShowDetail extends React.Component {
   //     }
   //   }
 
-  _displayTvShowStatus(){
-    if (this.state.tvShow.in_production == true) {
-      return(
-        <Text style={styles.production_text}>(Toujours en production)</Text>
-      )
-    }
-  }
-
-  _displayTvShow() {
-    const { tvShow } = this.state
-    if (tvShow != undefined) {
+  _displayEpisode() {
+    const { episode } = this.state
+    if (episode != undefined) {
       return (
         <ScrollView style={styles.scrollview_container}>
           <Image
             style={styles.image}
-            source={{uri: getImageFromApi(tvShow.backdrop_path)}}
+            source={{uri: getImageFromApi(episode.still_path)}}
           />
-          <Text style={styles.title_text}>{tvShow.name}</Text>
-          <Text style={styles.author_text}>Série crée par {tvShow.created_by.map(function(create){
-            return create.name;
-          })}</Text>
-          {this._displayTvShowStatus()}
-          <TouchableOpacity
-              style={styles.favorite_container}
-              onPress={() => this._toggleFavoriteTvShow()}>
-              {this._displayFavoriteImage()}
-          </TouchableOpacity>
-          <Text style={styles.description_text}>{tvShow.overview}</Text>
-          <Text style={styles.default_text}>Nombre de saisons : {tvShow.number_of_seasons}</Text>
-          <Text style={styles.default_text}>Nombre d'épisodes : {tvShow.number_of_episodes}</Text>
-          <Text style={styles.default_text}>Companie(s) : {tvShow.production_companies.map(function(company){
-              return company.name;
-            }).join(" / ")}
-          </Text>
-          <Text style={styles.default_text}>Note : {tvShow.vote_average}</Text>
-          <Text style={styles.default_text}>Nombre de votes : {tvShow.vote_count}</Text>
-          <Text style={styles.section_title}>Saisons : </Text>
-          <SeasonsList
-            seasons={tvShow.seasons}
-            idTvShow={tvShow.id}
-            navigation={this.props.navigation}
-            favoriteList={false}
-          />
+          <Text style={styles.title_text}>{episode.name}</Text>
+          <Text style={styles.description_text}>{episode.overview}</Text>
+          <Text style={styles.default_text}>Note : {episode.vote_average}</Text>
+          <Text style={styles.default_text}>Nombre de votes : {episode.vote_count}</Text>
           <Text style={styles.section_title}>Casting : </Text>
           <CastList
-            cast={tvShow.credits.cast}
+            cast={episode.credits.cast}
             navigation={this.props.navigation}
-            favoriteList={false}
-          />
-          <Text style={styles.section_title}>Selection de séries similaires : </Text>
-          <SimilarTvShowList
-            tvShows={tvShow.similar.results}
-            navigation={this.props.navigation}
-            page={this.page}
-            totalPages={this.totalPages}
             favoriteList={false}
           />
         </ScrollView>
@@ -226,7 +187,7 @@ class TvShowDetail extends React.Component {
     return (
       <View style={styles.main_container}>
         {this._displayLoading()}
-        {this._displayTvShow()}
+        {this._displayEpisode()}
       </View>
     )
   }
@@ -330,4 +291,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps)(TvShowDetail)
+export default connect(mapStateToProps)(EpisodeDetail)

@@ -1,6 +1,6 @@
 // API/TMDBApi.js
 
-const API_TOKEN = "3708f90c1f5771e2532ea88da595b2f3";
+const API_TOKEN = "...";
 
 /*
 ******
@@ -61,3 +61,15 @@ export function getTvShowDetailFromApi (id) {
     .then((response) => response.json())
     .catch((error) => console.error(error));
 }
+
+export function getSeasonDetailFromApi (id, number) {
+  return fetch('https://api.themoviedb.org/3/tv/' + id + '/season/' + number + '?api_key=' + API_TOKEN + '&language=fr-FR&append_to_response=credits,images,videos')
+    .then((response) => response.json())
+    .catch((error) => console.error(error));
+}
+
+export function getEpisodeDetailFromApi (idTvShow, idSeason, number) {
+  return fetch('https://api.themoviedb.org/3/tv/' + idTvShow + '/season/' + idSeason + '/episode/' + number + '?api_key=' + API_TOKEN + '&language=fr-FR&append_to_response=credits,images,videos')
+    .then((response) => response.json())
+    .catch((error) => console.error(error));
+  }
