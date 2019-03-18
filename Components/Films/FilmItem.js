@@ -1,7 +1,7 @@
 // Components/FilmItem.js
 
 import React from 'react'
-import { StyleSheet, View, Text, Image, TouchableOpacity } from 'react-native'
+import { StyleSheet, View, Text, Image, TouchableOpacity, Dimensions } from 'react-native'
 import { getImageFromApi, getFrenchReleaseDateFromApi } from '../../API/TMDBApi'
 import FadeIn from '../../Animations/FadeIn'
 import moment from 'moment'
@@ -14,7 +14,7 @@ class FilmItem extends React.Component {
       return (
         <Image
           style={styles.favorite_image}
-          source={require('../../Images/ic_favorite.png')}
+          source={require('../../Images/ic_heart_red.png')}
         />
       )
     }
@@ -27,24 +27,15 @@ class FilmItem extends React.Component {
         <TouchableOpacity
           style={styles.main_container}
           onPress={() => displayDetailForFilm(film.id)}>
+          <View style={styles.image_container}>
           <Image
             style={styles.image}
             source={{uri: getImageFromApi(film.poster_path)}}
           />
+          </View>
           <View style={styles.content_container}>
-            <View style={styles.header_container}>
-              {this._displayFavoriteImage()}
-              <Text style={styles.title_text}>{film.title}</Text>
-              <Text style={styles.vote_text}>{film.vote_average}</Text>
-            </View>
-            <View style={styles.description_container}>
-              <Text style={styles.description_text} numberOfLines={6}>{film.overview}</Text>
-            </View>
-            <View style={styles.date_container}>
-              <Text style={styles.date_text}>Sorti le {moment(new Date(film.release_date)).format('DD/MM/YYYY')}</Text>
-            </View>
-            <View>
-            </View>
+            <Text style={styles.title_text}>{film.title}</Text>
+            {this._displayFavoriteImage()}
           </View>
         </TouchableOpacity>
       </FadeIn>
@@ -54,28 +45,29 @@ class FilmItem extends React.Component {
 
 const styles = StyleSheet.create({
   main_container: {
-    height: 190,
-    flexDirection: 'row'
+    width: ((Dimensions.get('window').width)/2)-20,
+    height: 280,
+    margin: 10,
+  },
+  image_container: {
+
   },
   image: {
-    width: 120,
-    height: 180,
-    margin: 5
+    height: 250,
+    resizeMode: 'cover'
   },
   content_container: {
-    flex: 1,
-    margin: 5
-  },
-  header_container: {
-    flex: 3,
-    flexDirection: 'row'
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   title_text: {
     fontWeight: 'bold',
-    fontSize: 20,
+    fontSize: 16,
     flex: 1,
     flexWrap: 'wrap',
-    paddingRight: 5
+    paddingRight: 5,
+    textAlign: 'left'
   },
   vote_text: {
     fontWeight: 'bold',

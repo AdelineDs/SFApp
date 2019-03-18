@@ -22,7 +22,8 @@ class FilmList extends React.Component {
   render() {
     return (
         <FlatList
-          style={styles.list}
+          contentContainerStyle={styles.list}
+          numColumns={2}
           data={this.props.films}
           extraData={this.props.favoritesFilm}
           keyExtractor={(item) => item.id.toString()}
@@ -46,7 +47,8 @@ class FilmList extends React.Component {
 
 const styles = StyleSheet.create({
   list: {
-    flex: 1
+    flex: 1,
+    backgroundColor: '#d5d2cd'
   }
 })
 

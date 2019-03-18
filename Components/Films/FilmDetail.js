@@ -106,10 +106,10 @@ class FilmDetail extends React.Component {
   }
 
   _displayFavoriteImage() {
-    var sourceImage = require('../../Images/ic_favorite_border.png')
+    var sourceImage = require('../../Images/ic_heart_white.png')
     var shouldEnlarge = false // Par défaut, si le film n'est pas en favoris, on veut qu'au clic sur le bouton, celui-ci s'agrandisse => shouldEnlarge à true
     if (this.props.favoritesFilm.findIndex(item => item.id === this.state.film.id) !== -1) {
-      sourceImage = require('../../Images/ic_favorite.png')
+      sourceImage = require('../../Images/ic_heart_red.png')
       //shouldEnlarge = true // Si le film est dans les favoris, on veut qu'au clic sur le bouton, celui-ci se rétrécisse => shouldEnlarge à false
     }
     return (
@@ -127,10 +127,9 @@ class FilmDetail extends React.Component {
     this.state.film.release_dates.results.map(function(result){
       if (result.iso_3166_1 == "FR") {
         let frenchDate = result.release_dates[0].release_date
+        console.log(moment(new Date(frenchDate)).format('DD/MM/YYYY'));
         return (
-          <View>
           <Text style={styles.default_text}>Sortie en France : {moment(new Date(frenchDate)).format('DD/MM/YYYY')}</Text>
-          </View>
         )
       }
     })}
