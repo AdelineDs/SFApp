@@ -6,7 +6,6 @@ import { createStackNavigator, createBottomTabNavigator, createAppContainer } fr
 import Search from '../Components/Films/Search'
 import FilmDetail from '../Components/Films/FilmDetail'
 import Favorites from '../Components/Films/Favorites'
-import News from '../Components/Films/News'
 import FilmsSeen from '../Components/Films/FilmsSeen'
 import Home from '../Components/Home'
 
@@ -31,18 +30,6 @@ const FavoritesStackNavigator = createStackNavigator({
   },
   FilmDetail: {
     screen: FilmDetail
-  }
-})
-
-const NewsStackNavigator = createStackNavigator({
-  News: {
-    screen: News,
-    navigationOptions: {
-      title: 'Les Derniers Films',
-    },
-  },
-  FilmDetail: {
-    screen: FilmDetail,
   }
 })
 
@@ -90,16 +77,6 @@ const MoviesTabNavigator = createBottomTabNavigator(
         }
       }
     },
-    News: {
-      screen: NewsStackNavigator,
-      navigationOptions: {
-        tabBarIcon: () => {
-          return <Image
-            source={require('../Images/ic_fiber_new.png')}
-            style={styles.icon}/>
-        }
-      }
-    },
     FilmsSeen: {
       screen: FilmsSeenStackNavigator,
       navigationOptions: {
@@ -115,7 +92,7 @@ const MoviesTabNavigator = createBottomTabNavigator(
     tabBarOptions: {
       activeBackgroundColor: '#DDDDDD',
       inactiveBackgroundColor: '#FFFFFF',
-      showLabel: false,
+      showLabel: true,
       showIcon: true
     }
   }

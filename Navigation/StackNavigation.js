@@ -6,7 +6,6 @@ import { createStackNavigator, createBottomTabNavigator, createAppContainer } fr
 import Search from '../Components/Films/Search'
 import FilmDetail from '../Components/Films/FilmDetail'
 import Favorites from '../Components/Films/Favorites'
-import News from '../Components/Films/News'
 import FilmsSeen from '../Components/Films/FilmsSeen'
 import Home from '../Components/Home'
 import NowPlaying from '../Components/Films/NowPlaying'

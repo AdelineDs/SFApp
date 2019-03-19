@@ -20,7 +20,7 @@ class Search extends React.Component {
              />
            </TouchableOpacity>),
        headerStyle: {
-         backgroundColor: 'lightgrey'
+         backgroundColor: '#4e708b'
        }
  })
 
@@ -86,10 +86,11 @@ class Search extends React.Component {
         <TextInput
           style={styles.textinput}
           placeholder='Titre du film'
+          placeholderTextColor='#dac284'
           onChangeText={(text) => this._searchTextInputChanged(text)}
           onSubmitEditing={() => this._searchFilms()}
         />
-        <Button title='Rechercher' onPress={() => this._searchFilms()}/>
+        <Button title='Rechercher' color='#4e708b' onPress={() => this._searchFilms()}/>
         <FilmList
           films={this.state.films}
           navigation={this.props.navigation}
@@ -106,15 +107,15 @@ class Search extends React.Component {
 
 const styles = StyleSheet.create({
   main_container: {
-    flex: 1
+    flex: 1,
+    backgroundColor: '#192733'
   },
   textinput: {
-    marginLeft: 5,
-    marginRight: 5,
     height: 50,
-    borderColor: '#000000',
+    borderColor: '#dac284',
     borderWidth: 1,
-    paddingLeft: 5
+    paddingLeft: 10,
+    color: '#dac284'
   },
   loading_container: {
     position: 'absolute',

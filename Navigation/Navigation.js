@@ -6,7 +6,6 @@ import { createStackNavigator, createBottomTabNavigator, createAppContainer } fr
 import Search from '../Components/Films/Search'
 import FilmDetail from '../Components/Films/FilmDetail'
 import Favorites from '../Components/Films/Favorites'
-import News from '../Components/Films/News'
 import FilmsSeen from '../Components/Films/FilmsSeen'
 import Home from '../Components/Home'
 
@@ -34,18 +33,6 @@ const FavoritesStackNavigator = createStackNavigator({
   }
 })
 
-const NewsStackNavigator = createStackNavigator({
-  News: {
-    screen: News,
-    navigationOptions: {
-      title: 'Les Derniers Films',
-    },
-  },
-  FilmDetail: {
-    screen: FilmDetail,
-  }
-})
-
 const FilmsSeenStackNavigator = createStackNavigator({
   FilmsSeen: {
     screen: FilmsSeen,
@@ -60,7 +47,7 @@ const FilmsSeenStackNavigator = createStackNavigator({
 
 const MoviesTabNavigator = createBottomTabNavigator(
   {
-    Search: {
+    Rechercher: {
       screen: SearchStackNavigator,
       navigationOptions: {
         tabBarIcon: () => {
@@ -70,32 +57,22 @@ const MoviesTabNavigator = createBottomTabNavigator(
         }
       }
     },
-    Favorites: {
+    Favoris: {
       screen: FavoritesStackNavigator,
       navigationOptions: {
         tabBarIcon: () => {
           return <Image
-            source={require('../Images/ic_favorite.png')}
+            source={require('../Images/ic_heart_red.png')}
             style={styles.icon}/>
         }
       }
     },
-    News: {
-      screen: NewsStackNavigator,
-      navigationOptions: {
-        tabBarIcon: () => {
-          return <Image
-            source={require('../Images/ic_fiber_new.png')}
-            style={styles.icon}/>
-        }
-      }
-    },
-    FilmsSeen: {
+    Vus: {
       screen: FilmsSeenStackNavigator,
       navigationOptions: {
         tabBarIcon: () => {
           return <Image
-            source={require('../Images/ic_check.png')}
+            source={require('../Images/ic_check_white.png')}
             style={styles.icon}/>
         }
       }
@@ -103,10 +80,17 @@ const MoviesTabNavigator = createBottomTabNavigator(
   },
   {
     tabBarOptions: {
-      activeBackgroundColor: '#DDDDDD',
-      inactiveBackgroundColor: '#FFFFFF',
-      showLabel: false,
-      showIcon: true
+      activeBackgroundColor: '#3a576e',
+      inactiveBackgroundColor: '#4e708b',
+      showLabel: true,
+      showIcon: true,
+      labelStyle: {
+        color: '#dac284'
+      },
+      style: {
+        borderTopWidth:1,
+        borderTopColor:'#dac284'
+      },
     }
   }
 )

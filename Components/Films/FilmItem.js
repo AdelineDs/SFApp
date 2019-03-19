@@ -34,7 +34,7 @@ class FilmItem extends React.Component {
           />
           </View>
           <View style={styles.content_container}>
-            <Text style={styles.title_text}>{film.title}</Text>
+            <Text style={styles.title_text} numberOfLines={2}>{film.title}</Text>
             {this._displayFavoriteImage()}
           </View>
         </TouchableOpacity>
