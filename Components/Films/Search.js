@@ -1,7 +1,7 @@
 // Components/Search.js
 
 import React from 'react'
-import { StyleSheet, View, TextInput, Button, Text, FlatList, ActivityIndicator, TouchableOpacity, Image } from 'react-native'
+import { StyleSheet, View, TextInput, Button, Text, FlatList, ActivityIndicator, TouchableOpacity, Image, ScrollView } from 'react-native'
 import FilmItem from './FilmItem'
 import FilmList from './FilmList'
 import { getFilmsFromApiWithSearchedText } from '../../API/TMDBApi'
@@ -40,7 +40,7 @@ class Search extends React.Component {
     if (this.searchedText.length > 0) {
       this.setState({ isLoading: true })
       getFilmsFromApiWithSearchedText(this.searchedText, this.page+1).then(data => {
-        console.log('TEST SEARCH = ' + data.total_results)
+        //console.log('TEST SEARCH = ' + data.total_results)
           this.page = data.page
           this.totalPages = data.total_pages
           this.setState({
@@ -82,7 +82,7 @@ class Search extends React.Component {
 
   render() {
     return (
-      <View style={styles.main_container}>
+      <ScrollView style={styles.main_container}>
         <TextInput
           style={styles.textinput}
           placeholder='Titre du film'
@@ -99,7 +99,7 @@ class Search extends React.Component {
           favoriteList={false} // Ici j'ai simplement ajouté un booléen à false pour indiquer qu'on n'est pas dans le cas de l'affichage de la liste des films favoris. Et ainsi pouvoir déclencher le chargement de plus de films lorsque l'utilisateur scrolle.
         />
         {this._displayLoading()}
-      </View>
+      </ScrollView>
     )
   }
 }

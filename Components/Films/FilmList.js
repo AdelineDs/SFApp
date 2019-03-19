@@ -20,6 +20,8 @@ class FilmList extends React.Component {
   }
 
   render() {
+    console.log(this.props.page);
+    console.log(this.props.totalPages);
     return (
         <FlatList
           contentContainerStyle={styles.list}
@@ -48,7 +50,7 @@ class FilmList extends React.Component {
 const styles = StyleSheet.create({
   list: {
     flex: 1,
-    backgroundColor: '#d5d2cd'
+    backgroundColor: '#203040'
   }
 })
 

@@ -2,10 +2,10 @@
 
 import React from 'react'
 import { StyleSheet, FlatList } from 'react-native'
-import SimilarTvShowItem from './SimilarTvShowItem'
+import RecommendationsTvShowItem from './RecommendationsTvShowItem'
 import { connect } from 'react-redux'
 
-class SimilarTvShowList extends React.Component {
+class RecommendationsTvShowList extends React.Component {
 
   constructor(props) {
     super(props)
@@ -28,7 +28,7 @@ class SimilarTvShowList extends React.Component {
           horizontal={true}
           keyExtractor={(item) => item.id.toString()}
           renderItem={({item}) => (
-            <SimilarTvShowItem
+            <RecommendationsTvShowItem
               tvShow={item}
               //isFilmFavorite={(this.props.favoritesFilm.findIndex(film => film.id === item.id) !== -1) ? true : false} // Bonus pour différencier les films déjà présent dans notre state global et qui n'ont donc pas besoin d'être récupérés depuis l'API
               displayDetailForTvShow={this._displayDetailForTvShow}
@@ -51,4 +51,4 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps)(SimilarTvShowList)
+export default connect(mapStateToProps)(RecommendationsTvShowList)

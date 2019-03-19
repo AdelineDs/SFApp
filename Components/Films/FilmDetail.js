@@ -7,7 +7,7 @@ import moment from 'moment'
 import numeral from 'numeral'
 import { connect } from 'react-redux'
 import EnlargeShrink from '../../Animations/EnlargeShrink'
-import SimilarFilmList from './SimilarFilmList'
+import RecommendationsFilmList from './RecommendationsFilmList'
 import CastList from '../CastList'
 
 class FilmDetail extends React.Component {
@@ -26,6 +26,11 @@ class FilmDetail extends React.Component {
   //       }
   //     }
   // }
+  static navigationOptions =  ({navigation}) => ({
+       headerStyle: {
+         backgroundColor: '#4e708b'
+       }
+ })
 
   _isMounted = false
 
@@ -106,7 +111,7 @@ class FilmDetail extends React.Component {
   }
 
   _displayFavoriteImage() {
-    var sourceImage = require('../../Images/ic_heart_white.png')
+    var sourceImage = require('../../Images/ic_heart_blue.png')
     var shouldEnlarge = false // Par défaut, si le film n'est pas en favoris, on veut qu'au clic sur le bouton, celui-ci s'agrandisse => shouldEnlarge à true
     if (this.props.favoritesFilm.findIndex(item => item.id === this.state.film.id) !== -1) {
       sourceImage = require('../../Images/ic_heart_red.png')
@@ -140,12 +145,18 @@ class FilmDetail extends React.Component {
         if (this.props.FilmsSeen.findIndex(item => item.id === this.state.film.id) !== -1) {
           return (
           <View style={styles.seenButton}>
-            <Button title='NON VU' onPress={() => this._toggleSeen()}/>
+            <Button
+              title='NON VU'
+              color='#4e708b'
+              onPress={() => this._toggleSeen()}/>
           </View>)
         }
         return (
         <View style={styles.seenButton}>
-          <Button title='Marquer comme vu' onPress={() => this._toggleSeen()}/>
+          <Button
+            title='Marquer comme vu'
+            color='#4e708b'
+            onPress={() => this._toggleSeen()}/>
         </View>)
       }
     }
@@ -167,26 +178,39 @@ class FilmDetail extends React.Component {
           </TouchableOpacity>
           <Text style={styles.description_text}>{film.overview}</Text>
           {this._displayFrenchReleaseDate()}
-          <Text style={styles.default_text}>Note : {film.vote_average} / 10</Text>
-          <Text style={styles.default_text}>Nombre de votes : {film.vote_count}</Text>
-          <Text style={styles.default_text}>Budget : {numeral(film.budget).format('0,0[.]00 $')}</Text>
-          <Text style={styles.default_text}>Genre(s) : {film.genres.map(function(genre){
-              return genre.name;
-            }).join(" / ")}
-          </Text>
-          <Text style={styles.default_text}>Companie(s) : {film.production_companies.map(function(company){
-              return company.name;
-            }).join(" / ")}
-          </Text>
+          <View style={styles.info_container}>
+            <Text style={styles.em_text}>Note :</Text>
+            <Text style={styles.default_text}>{film.vote_average} / 10</Text>
+          </View>
+          <View style={styles.info_container}>
+            <Text style={styles.em_text}>Nombre de votes :</Text>
+            <Text style={styles.default_text}>{film.vote_count}</Text>
+          </View>
+          <View style={styles.info_container}>
+            <Text style={styles.em_text}>Budget :</Text>
+            <Text style={styles.default_text}>{numeral(film.budget).format('0,0[.]00 $')}</Text>
+          </View>
+          <View style={styles.info_container}>
+            <Text style={styles.em_text}>Genre(s) :</Text>
+            <Text style={styles.default_text}>{film.genres.map(function(genre){
+                return genre.name;
+              }).join(" / ")}</Text>
+          </View>
+          <View style={[styles.info_container, {marginBottom: 20}]}>
+            <Text style={styles.em_text}>Companie(s) :</Text>
+            <Text style={styles.default_text}>{film.production_companies.map(function(company){
+                return company.name;
+              }).join(" / ")}</Text>
+          </View>
           <Text style={styles.section_title}>Casting du film : </Text>
           <CastList
             cast={film.credits.cast}
             navigation={this.props.navigation}
             favoriteList={false}
           />
-          <Text style={styles.section_title}>Selection de films similaires : </Text>
-          <SimilarFilmList
-            films={film.similar.results}
+          <Text style={styles.section_title}>Recommendations : </Text>
+          <RecommendationsFilmList
+            films={film.recommendations.results}
             navigation={this.props.navigation}
             page={this.page}
             totalPages={this.totalPages}
@@ -233,6 +257,7 @@ class FilmDetail extends React.Component {
 const styles = StyleSheet.create({
   main_container: {
     flex: 1,
+    backgroundColor: '#192733'
   },
   loading_container: {
     position: 'absolute',
@@ -247,26 +272,18 @@ const styles = StyleSheet.create({
     flex: 1
   },
   image: {
-    height: 169,
-    margin: 5
-  },
-  section_title: {
-    fontWeight: 'bold',
-    textAlign: 'center',
-    fontSize: 20,
-    margin: 10,
-    color: '#ab2635'
+    height: 180,
   },
   title_text: {
     fontWeight: 'bold',
-    fontSize: 35,
+    fontSize: 28,
     flex: 1,
     flexWrap: 'wrap',
     marginLeft: 5,
     marginRight: 5,
-    marginTop: 10,
-    marginBottom: 10,
-    color: '#000000',
+    marginTop: 5,
+    marginBottom: 5,
+    color: '#e3a92b',
     textAlign: 'center'
   },
   favorite_container: {
@@ -274,11 +291,24 @@ const styles = StyleSheet.create({
   },
   description_text: {
     fontStyle: 'italic',
-    color: '#666666',
+    color: '#dac284',
     margin: 5,
-    marginBottom: 15
+    marginBottom: 15,
+    fontSize: 16,
+    textAlign: 'justify'
+  },
+  info_container:{
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+  },
+  em_text: {
+    color: '#fdd389',
+    fontWeight: 'bold',
+    marginLeft: 5,
+    marginTop: 5,
   },
   default_text: {
+    color: '#dac284',
     marginLeft: 5,
     marginRight: 5,
     marginTop: 5,
@@ -287,6 +317,14 @@ const styles = StyleSheet.create({
     flex: 1,
     width: null,
     height: null
+  },
+  section_title: {
+    fontWeight: 'bold',
+    textAlign: 'center',
+    fontSize: 20,
+    margin: 10,
+    color: '#c79503',
+    //textDecorationLine: 'underline'
   },
   share_touchable_floatingactionbutton: {
     position: 'absolute',
@@ -308,7 +346,7 @@ const styles = StyleSheet.create({
     height: 30
   },
   seenButton: {
-    zIndex: 1
+    zIndex: 1,
   }
 })
 

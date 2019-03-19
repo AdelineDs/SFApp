@@ -67,26 +67,8 @@ const styles = StyleSheet.create({
     flex: 1,
     flexWrap: 'wrap',
     paddingRight: 5,
-    textAlign: 'left'
-  },
-  vote_text: {
-    fontWeight: 'bold',
-    fontSize: 26,
-    color: '#666666'
-  },
-  description_container: {
-    flex: 7
-  },
-  description_text: {
-    fontStyle: 'italic',
-    color: '#666666'
-  },
-  date_container: {
-    flex: 1
-  },
-  date_text: {
-    textAlign: 'right',
-    fontSize: 14
+    textAlign: 'left',
+    color: '#dac284'
   },
   favorite_image: {
     width: 25,

@@ -1,7 +1,7 @@
 // Components/SimilarFilmItem.js
 
 import React from 'react'
-import { StyleSheet, View, Text, Image, TouchableOpacity } from 'react-native'
+import { StyleSheet, View, Text, Image, TouchableOpacity, Dimensions } from 'react-native'
 import { getImageFromApi, getFrenchReleaseDateFromApi } from '../../API/TMDBApi'
 import moment from 'moment'
 
@@ -53,22 +53,23 @@ class SeasonItem extends React.Component {
 
 const styles = StyleSheet.create({
   main_container: {
-    height: 120,
-    flexDirection: 'row',
+    width: ((Dimensions.get('window').width)/3)-4,
+    height: 200,
+    flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
-    margin: 5,
+    margin: 2,
     backgroundColor: "lavender",
     borderRadius: 10,
   },
   image: {
+    resizeMode: 'cover',
     height: 120,
-    flex: 1,
+    width: ((Dimensions.get('window').width)/3)-4,
     borderTopLeftRadius: 10,
-    borderBottomLeftRadius: 10,
+    borderTopRightRadius: 10,
   },
   content_container: {
-    flex: 1,
     margin: 5,
     flexDirection: 'column',
     alignItems: 'center',
@@ -83,8 +84,8 @@ const styles = StyleSheet.create({
     fontSize: 12,
   },
   favorite_image: {
-    width: 25,
-    height: 25,
+    width: 22,
+    height: 22,
     marginRight: 5
   },
   check_image:{

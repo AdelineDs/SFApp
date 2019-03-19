@@ -15,7 +15,7 @@ export function getFilmsFromApiWithSearchedText (text, page) {
 }
 
 export function getFilmDetailFromApi (id) {
-  return fetch('https://api.themoviedb.org/3/movie/' + id + '?api_key=' + API_TOKEN + '&language=fr&append_to_response=credits,release_dates,similar,images,keywords,videos')
+  return fetch('https://api.themoviedb.org/3/movie/' + id + '?api_key=' + API_TOKEN + '&language=fr&append_to_response=credits,release_dates,recommendations,similar,images,keywords,videos')
     .then((response) => response.json())
     .catch((error) => console.error(error));
 }

@@ -2,10 +2,10 @@
 
 import React from 'react'
 import { StyleSheet, FlatList } from 'react-native'
-import SimilarFilmItem from './SimilarFilmItem'
+import RecommendationsFilmItem from './RecommendationsFilmItem'
 import { connect } from 'react-redux'
 
-class SimilarFilmList extends React.Component {
+class RecommendationsFilmList extends React.Component {
 
   constructor(props) {
     super(props)
@@ -28,7 +28,7 @@ class SimilarFilmList extends React.Component {
           horizontal={true}
           keyExtractor={(item) => item.id.toString()}
           renderItem={({item}) => (
-            <SimilarFilmItem
+            <RecommendationsFilmItem
               film={item}
               isFilmFavorite={(this.props.favoritesFilm.findIndex(film => film.id === item.id) !== -1) ? true : false} // Bonus pour différencier les films déjà présent dans notre state global et qui n'ont donc pas besoin d'être récupérés depuis l'API
               displayDetailForFilm={this._displayDetailForFilm}
@@ -51,4 +51,4 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps)(SimilarFilmList)
+export default connect(mapStateToProps)(RecommendationsFilmList)

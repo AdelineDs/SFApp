@@ -7,7 +7,7 @@ import moment from 'moment'
 import numeral from 'numeral'
 import { connect } from 'react-redux'
 import EnlargeShrink from '../../Animations/EnlargeShrink'
-import SimilarTvShowList from './SimilarTvShowList'
+import RecommendationsTvShowList from './RecommendationsTvShowList'
 import CastList from '../CastList'
 import SeasonsList from './SeasonsList'
 
@@ -187,8 +187,8 @@ class TvShowDetail extends React.Component {
             navigation={this.props.navigation}
             favoriteList={false}
           />
-          <Text style={styles.section_title}>Selection de séries similaires : </Text>
-          <SimilarTvShowList
+          <Text style={styles.section_title}>Recommendations : </Text>
+          <RecommendationsTvShowList
             tvShows={tvShow.similar.results}
             navigation={this.props.navigation}
             page={this.page}

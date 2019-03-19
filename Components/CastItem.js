@@ -63,7 +63,6 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
-
   },
   image: {
     width: 90,
@@ -81,10 +80,12 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 14,
     flexWrap: 'wrap',
+    color: '#fdd389'
   },
   text: {
     fontStyle: 'italic',
     fontSize: 12,
+    color: '#dac284'
   },
   favorite_image: {
     width: 25,

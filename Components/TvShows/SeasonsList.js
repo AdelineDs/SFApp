@@ -22,6 +22,7 @@ class SeasonsList extends React.Component {
     return (
         <FlatList
           style={styles.list}
+          numColumns={3}
           data={this.props.seasons}
           //extraData={this.props.idTvShow}
           keyExtractor={(item) => item.id.toString()}
@@ -46,7 +47,7 @@ class SeasonsList extends React.Component {
 
 const styles = StyleSheet.create({
   list: {
-    flex: 1
+    flex: 1,
   }
 })
 

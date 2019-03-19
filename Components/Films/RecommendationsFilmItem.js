@@ -1,11 +1,11 @@
-// Components/SimilarFilmItem.js
+// Components/RecommendationsFilmItem.js
 
 import React from 'react'
 import { StyleSheet, View, Text, Image, TouchableOpacity } from 'react-native'
-import { getImageFromApi } from '../../API/TMDBApi'
+import { getImageFromApi, getFrenchReleaseDateFromApi } from '../../API/TMDBApi'
 import moment from 'moment'
 
-class SimilarTvShowItem extends React.Component {
+class RecommendationsFilmItem extends React.Component {
 
   _displayFavoriteImage() {
     if (this.props.isFilmFavorite) {
@@ -20,17 +20,17 @@ class SimilarTvShowItem extends React.Component {
   }
 
   render() {
-    const { tvShow, displayDetailForTvShow } = this.props
+    const { film, displayDetailForFilm } = this.props
     return (
       <TouchableOpacity
         style={styles.main_container}
-        onPress={() => displayDetailForTvShow(tvShow.id)}>
+        onPress={() => displayDetailForFilm(film.id)}>
         <Image
           style={styles.image}
-          source={{uri: getImageFromApi(tvShow.poster_path)}}
+          source={{uri: getImageFromApi(film.poster_path)}}
         />
         <View style={styles.content_container}>
-          <Text style={styles.title_text} numberOfLines={1}>{tvShow.name}</Text>
+          <Text style={styles.title_text} numberOfLines={1}>{film.title}</Text>
           {this._displayFavoriteImage()}
         </View>
       </TouchableOpacity>
@@ -64,7 +64,8 @@ const styles = StyleSheet.create({
     fontSize: 14,
     flex: 1,
     flexWrap: 'wrap',
-    paddingRight: 5
+    paddingRight: 5,
+    color: '#fdd389'
   },
   favorite_image: {
     width: 25,
@@ -73,4 +74,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default SimilarTvShowItem
+export default RecommendationsFilmItem

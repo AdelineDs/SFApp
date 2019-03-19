@@ -19,7 +19,7 @@ class Home extends React.Component {
               />
             </TouchableOpacity>),
         headerStyle: {
-          backgroundColor: 'lightgrey'
+          backgroundColor: '#4e708b'
         },
         headerRight: (
             <TouchableOpacity style={styles.menu_btn_right}
@@ -97,8 +97,8 @@ const styles = StyleSheet.create({
       fontWeight: 'bold',
       fontSize: 20,
       padding: 15,
-      backgroundColor: '#97b6a0',
-      color: '#4d4049'
+      backgroundColor: '#3a576e',
+      color: '#dac284'
     }
 });
 
