@@ -61,7 +61,7 @@ class Home extends React.Component {
 
   render() {
     return (
-      <ScrollView>
+      <ScrollView style={styles.container}>
         <Text style={styles.title}>Bientôt dans vos salles</Text>
         <FilmList
           films={this.state.films}
@@ -78,9 +78,7 @@ class Home extends React.Component {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
+        backgroundColor: '#213242'
     },
     menu_btn_left: {
         marginLeft: 15,

@@ -77,6 +77,7 @@ const styles = StyleSheet.create({
     fontSize: 17,
     flexWrap: 'wrap',
     textAlign: 'center',
+    color: '#dac284'
   },
   date_container: {
     flex: 1

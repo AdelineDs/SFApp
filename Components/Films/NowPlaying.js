@@ -72,7 +72,7 @@ class NowPlaying extends React.Component {
 
   render() {
     return (
-      <ScrollView>
+      <ScrollView styles={styles.container}>
         <Text style={styles.title}>Actuellement dans vos salles</Text>
         <FilmList
           films={this.state.films}
@@ -89,9 +89,7 @@ class NowPlaying extends React.Component {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
+        backgroundColor: '#213242'
     },
     menu_btn_left: {
         marginLeft: 15,

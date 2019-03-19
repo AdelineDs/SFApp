@@ -25,7 +25,7 @@ const FavoritesStackNavigator = createStackNavigator({
   Favorites: {
     screen: Favorites,
     navigationOptions: {
-      title: 'Favoris'
+      title: 'Mes Favoris'
     }
   },
   FilmDetail: {
@@ -62,7 +62,7 @@ const MoviesTabNavigator = createBottomTabNavigator(
       navigationOptions: {
         tabBarIcon: () => {
           return <Image
-            source={require('../Images/ic_heart_red.png')}
+            source={require('../Images/ic_heart_black.png')}
             style={styles.icon}/>
         }
       }
@@ -72,7 +72,7 @@ const MoviesTabNavigator = createBottomTabNavigator(
       navigationOptions: {
         tabBarIcon: () => {
           return <Image
-            source={require('../Images/ic_check_white.png')}
+            source={require('../Images/ic_check_black.png')}
             style={styles.icon}/>
         }
       }

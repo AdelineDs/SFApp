@@ -9,7 +9,7 @@ import Avatar from '../Avatar'
 class Favorites extends React.Component {
 
   static navigationOptions =  ({navigation}) => ({
-       headerTitle: "Favoris",
+       headerTitle: " Mes Favoris",
        headerLeft: (
            <TouchableOpacity style={styles.menu_btn}
                onPress={() => {navigation.openDrawer()}}
@@ -20,7 +20,7 @@ class Favorites extends React.Component {
              />
            </TouchableOpacity>),
        headerStyle: {
-         backgroundColor: 'lightgrey'
+         backgroundColor: '#4e708b'
        }
  })
 
@@ -45,7 +45,8 @@ const styles = StyleSheet.create({
     flex: 1
   },
   avatar_container: {
-    alignItems: 'center'
+    alignItems: 'center',
+    backgroundColor: '#213242'
   }
 })
 

@@ -19,7 +19,7 @@ class FilmsSeen extends React.Component {
              />
            </TouchableOpacity>),
        headerStyle: {
-         backgroundColor: 'lightgrey'
+         backgroundColor: '#4e708b'
        }
  })
 
@@ -38,7 +38,8 @@ class FilmsSeen extends React.Component {
 
 const styles = StyleSheet.create({
   main_container: {
-    flex: 1
+    flex: 1,
+    backgroundColor: '#213242'
   },
   avatar_container: {
     alignItems: 'center'

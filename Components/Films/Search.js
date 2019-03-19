@@ -108,7 +108,7 @@ class Search extends React.Component {
 const styles = StyleSheet.create({
   main_container: {
     flex: 1,
-    backgroundColor: '#192733'
+    backgroundColor: '#213242'
   },
   textinput: {
     height: 50,
