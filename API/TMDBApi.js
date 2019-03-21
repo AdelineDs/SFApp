@@ -73,3 +73,15 @@ export function getEpisodeDetailFromApi (idTvShow, idSeason, number) {
     .then((response) => response.json())
     .catch((error) => console.error(error));
   }
+
+  /*
+  ******
+  PEOPLE FUNCTIONS
+  ******
+  */
+
+  export function getActorDetailFromApi (id) {
+    return fetch('https://api.themoviedb.org/3/person/'+ id + '?api_key=' + API_TOKEN + '&language=fr-FR&append_to_response=combined_credits%2Cimages%2Ctagged_images%2Clatest%2Cpopulart')
+      .then((response) => response.json())
+      .catch((error) => console.error(error));
+  }

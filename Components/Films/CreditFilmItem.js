@@ -1,11 +1,11 @@
-// Components/SimilarFilmItem.js
+// Components/RecommendationsFilmItem.js
 
 import React from 'react'
 import { StyleSheet, View, Text, Image, TouchableOpacity } from 'react-native'
-import { getImageFromApi, getFrenchReleaseDateFromApi } from '../API/TMDBApi'
+import { getImageFromApi, getFrenchReleaseDateFromApi } from '../../API/TMDBApi'
 import moment from 'moment'
 
-class CastItem extends React.Component {
+class CreditFilmItem extends React.Component {
 
   _displayFavoriteImage() {
     if (this.props.isFilmFavorite) {
@@ -13,43 +13,26 @@ class CastItem extends React.Component {
       return (
         <Image
           style={styles.favorite_image}
-          source={require('../Images/ic_favorite.png')}
+          source={require('../../Images/ic_favorite.png')}
         />
       )
     }
   }
 
-  _displayCastImage() {
-    let sourceImage = {uri: getImageFromApi(this.props.cast.profile_path)}
-    if (this.props.cast.profile_path == null ) {
-      sourceImage = require('../Images/ic_person.png')
-    }
-    return(
-      <Image
-        style={styles.image}
-        source={sourceImage}
-      />
-    )
-  }
-
-  _displayCharacter(){
-    if (this.props.cast.character != "") {
-      return (
-        <Text style={styles.text} numberOfLines={1}>({this.props.cast.character})</Text>
-      )
-    }
-  }
-
   render() {
-    const { cast, displayDetailForActor } = this.props
+    const { film, displayDetailForFilm } = this.props
     return (
       <TouchableOpacity
         style={styles.main_container}
-        onPress={() => {displayDetailForActor(cast.id)}}>
-        {this._displayCastImage()}
+        onPress={() => displayDetailForFilm(film.id)}>
+        <Image
+          style={styles.image}
+          source={{uri: getImageFromApi(film.poster_path)}}
+        />
         <View style={styles.content_container}>
-          <Text style={styles.title_text} numberOfLines={1}>{cast.name}</Text>
-          {this._displayCharacter()}
+          <Text style={styles.title_text} numberOfLines={1}>{film.title}</Text>
+          <Text style={styles.text} numberOfLines={1}>({film.character})</Text>
+          {this._displayFavoriteImage()}
         </View>
       </TouchableOpacity>
     )
@@ -58,11 +41,12 @@ class CastItem extends React.Component {
 
 const styles = StyleSheet.create({
   main_container: {
-    height: 155,
+    height: 150,
     width: 120,
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
+
   },
   image: {
     width: 90,
@@ -79,7 +63,9 @@ const styles = StyleSheet.create({
   title_text: {
     fontWeight: 'bold',
     fontSize: 14,
+    flex: 1,
     flexWrap: 'wrap',
+    paddingRight: 5,
     color: '#fdd389'
   },
   text: {
@@ -94,4 +80,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default CastItem
+export default CreditFilmItem

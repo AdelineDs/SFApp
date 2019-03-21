@@ -20,8 +20,6 @@ class FilmList extends React.Component {
   }
 
   render() {
-    console.log(this.props.page);
-    console.log(this.props.totalPages);
     return (
         <FlatList
           contentContainerStyle={styles.list}

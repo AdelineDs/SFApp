@@ -8,6 +8,7 @@ import FilmDetail from '../Components/Films/FilmDetail'
 import Favorites from '../Components/Films/Favorites'
 import FilmsSeen from '../Components/Films/FilmsSeen'
 import Home from '../Components/Home'
+import ActorDetail from '../Components/ActorDetail'
 
 const SearchStackNavigator = createStackNavigator({
   Search: {
@@ -19,6 +20,9 @@ const SearchStackNavigator = createStackNavigator({
   FilmDetail: {
     screen: FilmDetail
   },
+  ActorDetail: {
+    screen: ActorDetail,
+  }
 })
 
 const FavoritesStackNavigator = createStackNavigator({
@@ -30,6 +34,9 @@ const FavoritesStackNavigator = createStackNavigator({
   },
   FilmDetail: {
     screen: FilmDetail
+  },
+  ActorDetail: {
+    screen: ActorDetail,
   }
 })
 
@@ -42,6 +49,9 @@ const FilmsSeenStackNavigator = createStackNavigator({
   },
   FilmDetail: {
     screen: FilmDetail,
+  },
+  ActorDetail: {
+    screen: ActorDetail,
   }
 })
 

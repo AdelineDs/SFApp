@@ -90,7 +90,6 @@ class EpisodeDetail extends React.Component {
     this.setState({ isLoading: true })
     getEpisodeDetailFromApi(this.props.navigation.state.params.idTvShow, this.props.navigation.state.params.idSeason, this.props.navigation.state.params.idEpisode).then(data => {
       if (this._isMounted) {
-        console.log(data);
         this.setState({
           episode: data,
           isLoading: false

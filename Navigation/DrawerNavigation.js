@@ -8,12 +8,14 @@ const DrawerNavigation = createDrawerNavigator({
     Home: {
         screen: StackNavigator,
     }
-}, {
-    contentComponent: SideMenu,
-    drawerWidth: Dimensions.get('window').width - 100,
-    drawerOpenRoute: 'DrawerOpen',
-    drawerCloseRoute: 'DrawerClose',
-});
+  },
+    {
+        contentComponent: SideMenu,
+        drawerWidth: Dimensions.get('window').width - 150,
+        drawerOpenRoute: 'DrawerOpen',
+        drawerCloseRoute: 'DrawerClose',
+    }
+);
 
 const AppDrawerNavigation = createAppContainer(DrawerNavigation)
 

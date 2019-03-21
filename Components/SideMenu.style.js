@@ -1,8 +1,11 @@
 export default {
     container: {
-        paddingTop: 20,
+        paddingTop: 10,
         flex: 1,
         backgroundColor: '#4e708b'
+    },
+    avatar_container: {
+      alignItems: 'center',
     },
     navItemStyle: {
         padding: 10,

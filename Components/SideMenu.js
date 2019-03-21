@@ -3,6 +3,7 @@ import React, {Component} from 'react';
 import styles from './SideMenu.style';
 import {NavigationActions} from 'react-navigation';
 import { ScrollView, Text, View, SafeAreaView, TouchableOpacity } from 'react-native';
+import Avatar from './Avatar'
 
 
 class SideMenu extends Component {
@@ -17,20 +18,30 @@ class SideMenu extends Component {
         this.props.navigation.dispatch(navigateAction);
     }
 
+    constructor(props) {
+      super(props);
+      this.state = {
+        currentScreen: props.navigation.navigate
+      };
+    }
+
     render () {
         return (
             <SafeAreaView style={styles.container}>
+              <View style={styles.avatar_container}>
+                <Avatar/>
+              </View>
                 <ScrollView>
-                <TouchableOpacity onPress={() => this.props.navigation.navigate("Home")}>
-                    <Text style={styles.sectionHeadingStyle}>
-                        Retour à l'accueil
-                    </Text>
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => this.props.navigation.navigate("Search")}>
-                    <Text style={styles.sectionHeadingStyle}>
-                        Gérer mes films
-                    </Text>
-                </TouchableOpacity>
+                  <TouchableOpacity onPress={() => this.props.navigation.navigate("Home")}>
+                      <Text style={styles.sectionHeadingStyle}>
+                          Retour à l'accueil
+                      </Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity onPress={() => this.props.navigation.navigate("Search")}>
+                      <Text style={styles.sectionHeadingStyle}>
+                          Gérer mes films
+                      </Text>
+                  </TouchableOpacity>
                     <TouchableOpacity onPress={() => this.props.navigation.navigate("Tv")}>
                         <Text style={styles.sectionHeadingStyle}>
                             Gérer mes séries
@@ -48,7 +59,7 @@ class SideMenu extends Component {
                     </TouchableOpacity>
                 </ScrollView>
                 <View style={styles.footerContainer}>
-                    <Text>This is my fixed footer</Text>
+                    <Text></Text>
                 </View>
             </SafeAreaView>
         );

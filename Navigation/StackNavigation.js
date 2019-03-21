@@ -11,6 +11,7 @@ import Home from '../Components/Home'
 import NowPlaying from '../Components/Films/NowPlaying'
 import MoviesTabNavigator from './Navigation'
 import TvTabNavigator from './TvNavigation'
+import ActorDetail from '../Components/ActorDetail'
 
 const HomeStackNavigator = createStackNavigator({
   Home: {
@@ -21,11 +22,14 @@ const HomeStackNavigator = createStackNavigator({
   },
   FilmDetail: {
     screen: FilmDetail,
+  },
+  ActorDetail: {
+    screen: ActorDetail,
   }
 })
 
 const NowPlayingStackNavigator = createStackNavigator({
-  Home: {
+  NowPlaying: {
     screen: NowPlaying,
     navigationOptions: {
       title: 'NowPlaying'
@@ -33,6 +37,9 @@ const NowPlayingStackNavigator = createStackNavigator({
   },
   FilmDetail: {
     screen: FilmDetail,
+  },
+  ActorDetail: {
+    screen: ActorDetail,
   }
 })
 
