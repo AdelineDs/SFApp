@@ -64,7 +64,8 @@ const styles = StyleSheet.create({
     fontSize: 14,
     flex: 1,
     flexWrap: 'wrap',
-    paddingRight: 5
+    paddingRight: 5,
+    color: '#fdd389'
   },
   favorite_image: {
     width: 25,

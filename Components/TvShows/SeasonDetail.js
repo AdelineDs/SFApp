@@ -27,6 +27,12 @@ class SeasonDetail extends React.Component {
   //     }
   // }
 
+  static navigationOptions =  ({navigation}) => ({
+       headerStyle: {
+         backgroundColor: '#4e708b'
+       }
+ })
+
   _isMounted = false
 
   constructor(props) {
@@ -145,12 +151,6 @@ class SeasonDetail extends React.Component {
             navigation={this.props.navigation}
             favoriteList={false}
           />
-          <Text style={styles.section_title}>Casting : </Text>
-          <CastList
-            cast={season.credits.cast}
-            navigation={this.props.navigation}
-            favoriteList={false}
-          />
         </ScrollView>
       )
     }
@@ -191,6 +191,7 @@ class SeasonDetail extends React.Component {
 const styles = StyleSheet.create({
   main_container: {
     flex: 1,
+    backgroundColor: '#213242'
   },
   loading_container: {
     position: 'absolute',

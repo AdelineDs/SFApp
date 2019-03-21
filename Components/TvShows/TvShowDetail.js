@@ -28,6 +28,12 @@ class TvShowDetail extends React.Component {
   //     }
   // }
 
+  static navigationOptions =  ({navigation}) => ({
+       headerStyle: {
+         backgroundColor: '#4e708b'
+       }
+ })
+
   _isMounted = false
 
   constructor(props) {
@@ -166,14 +172,34 @@ class TvShowDetail extends React.Component {
               {this._displayFavoriteImage()}
           </TouchableOpacity>
           <Text style={styles.description_text}>{tvShow.overview}</Text>
-          <Text style={styles.default_text}>Nombre de saisons : {tvShow.number_of_seasons}</Text>
-          <Text style={styles.default_text}>Nombre d'épisodes : {tvShow.number_of_episodes}</Text>
-          <Text style={styles.default_text}>Companie(s) : {tvShow.production_companies.map(function(company){
-              return company.name;
-            }).join(" / ")}
-          </Text>
-          <Text style={styles.default_text}>Note : {tvShow.vote_average}</Text>
-          <Text style={styles.default_text}>Nombre de votes : {tvShow.vote_count}</Text>
+          <View style={styles.info_container}>
+            <Text style={styles.em_text}>Nombre de saisons :</Text>
+            <Text style={styles.default_text}>{tvShow.number_of_seasons}</Text>
+          </View>
+          <View style={styles.info_container}>
+            <Text style={styles.em_text}>Nombre d'épisodes :</Text>
+            <Text style={styles.default_text}>{tvShow.number_of_episodes}</Text>
+          </View>
+          <View style={styles.info_container}>
+            <Text style={styles.em_text}>Note :</Text>
+            <Text style={styles.default_text}>{tvShow.vote_average}</Text>
+          </View>
+          <View style={styles.info_container}>
+            <Text style={styles.em_text}>Nombre de votes :</Text>
+            <Text style={styles.default_text}>{tvShow.vote_count}</Text>
+          </View>
+          <View style={styles.info_container}>
+            <Text style={styles.em_text}>Genre(s) :</Text>
+            <Text style={styles.default_text}>{tvShow.genres.map(function(genre){
+                return genre.name;
+              }).join(" / ")}</Text>
+          </View>
+          <View style={styles.info_container}>
+            <Text style={styles.em_text}>Companie(s) :</Text>
+            <Text style={styles.default_text}>{tvShow.production_companies.map(function(company){
+                return company.name;
+              }).join(" / ")}</Text>
+          </View>
           <Text style={styles.section_title}>Saisons : </Text>
           <SeasonsList
             seasons={tvShow.seasons}
@@ -235,6 +261,7 @@ class TvShowDetail extends React.Component {
 const styles = StyleSheet.create({
   main_container: {
     flex: 1,
+    backgroundColor: '#213242'
   },
   loading_container: {
     position: 'absolute',
@@ -249,26 +276,18 @@ const styles = StyleSheet.create({
     flex: 1
   },
   image: {
-    height: 169,
-    margin: 5
-  },
-  section_title: {
-    fontWeight: 'bold',
-    textAlign: 'center',
-    fontSize: 20,
-    margin: 10,
-    color: '#ab2635'
+    height: 180,
   },
   title_text: {
     fontWeight: 'bold',
-    fontSize: 35,
+    fontSize: 28,
     flex: 1,
     flexWrap: 'wrap',
     marginLeft: 5,
     marginRight: 5,
-    marginTop: 10,
-    marginBottom: 0,
-    color: '#000000',
+    marginTop: 5,
+    marginBottom: 5,
+    color: '#e3a92b',
     textAlign: 'center'
   },
   favorite_container: {
@@ -276,20 +295,34 @@ const styles = StyleSheet.create({
   },
   author_text: {
     textAlign: 'center',
+    color: '#fdd389',
   },
   production_text: {
     textAlign: 'center',
     fontStyle: 'italic',
-    marginBottom: 10
+    marginBottom: 10,
+    color: '#fdd389',
   },
   description_text: {
     fontStyle: 'italic',
-    color: '#666666',
+    color: '#dac284',
     margin: 5,
     marginBottom: 15,
+    fontSize: 16,
     textAlign: 'justify'
   },
+  info_container:{
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+  },
+  em_text: {
+    color: '#fdd389',
+    fontWeight: 'bold',
+    marginLeft: 5,
+    marginTop: 5,
+  },
   default_text: {
+    color: '#dac284',
     marginLeft: 5,
     marginRight: 5,
     marginTop: 5,
@@ -298,6 +331,13 @@ const styles = StyleSheet.create({
     flex: 1,
     width: null,
     height: null
+  },
+  section_title: {
+    fontWeight: 'bold',
+    textAlign: 'center',
+    fontSize: 20,
+    margin: 10,
+    color: '#c79503',
   },
   share_touchable_floatingactionbutton: {
     position: 'absolute',

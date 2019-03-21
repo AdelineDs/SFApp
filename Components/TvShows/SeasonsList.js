@@ -21,7 +21,7 @@ class SeasonsList extends React.Component {
   render() {
     return (
         <FlatList
-          style={styles.list}
+          contenteContainerStyle={styles.list}
           numColumns={3}
           data={this.props.seasons}
           //extraData={this.props.idTvShow}

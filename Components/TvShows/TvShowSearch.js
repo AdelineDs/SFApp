@@ -20,7 +20,7 @@ class TvShowSearch extends React.Component {
              />
            </TouchableOpacity>),
        headerStyle: {
-         backgroundColor: 'lightgrey'
+         backgroundColor: '#4e708b'
        }
  })
 
@@ -85,10 +85,11 @@ class TvShowSearch extends React.Component {
         <TextInput
           style={styles.textinput}
           placeholder='Titre de la série'
+          placeholderTextColor='#dac284'
           onChangeText={(text) => this._searchTextInputChanged(text)}
           onSubmitEditing={() => this._searchTvShows()}
         />
-        <Button title='Rechercher la série' onPress={() => this._searchTvShows()}/>
+        <Button title='Rechercher la série' color='#4e708b' onPress={() => this._searchTvShows()}/>
         <TvList
           tvShows={this.state.tvShows}
           navigation={this.props.navigation}
@@ -105,15 +106,15 @@ class TvShowSearch extends React.Component {
 
 const styles = StyleSheet.create({
   main_container: {
-    flex: 1
+    flex: 1,
+    backgroundColor: '#213242'
   },
   textinput: {
-    marginLeft: 5,
-    marginRight: 5,
     height: 50,
-    borderColor: '#000000',
     borderWidth: 1,
-    paddingLeft: 5
+    borderColor: '#dac284',
+    paddingLeft: 10,
+    color: '#dac284'
   },
   loading_container: {
     position: 'absolute',

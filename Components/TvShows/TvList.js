@@ -23,6 +23,7 @@ class TvList extends React.Component {
     return (
         <FlatList
           style={styles.list}
+          numColumns={2}
           data={this.props.tvShows}
           extraData={this.props.favoritesTvShow}
           keyExtractor={(item) => item.id.toString()}

@@ -41,10 +41,7 @@ class EpisodeItem extends React.Component {
         {this._displayImage()}
         <View style={styles.content_container}>
           <Text style={styles.title_text} numberOfLines={1}>{episode.name}</Text>
-          <Text style={styles.text} numberOfLines={3}>{episode.overview}</Text>
-          <TouchableOpacity>
-            <Image style={styles.check_image} source={require('../../Images/ic_check_white.png')}/>
-          </TouchableOpacity>
+          <Text style={styles.text} numberOfLines={2}>{episode.overview}</Text>
         </View>
       </TouchableOpacity>
     )
@@ -53,16 +50,20 @@ class EpisodeItem extends React.Component {
 
 const styles = StyleSheet.create({
   main_container: {
-    height: 120,
+    height: 100,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    margin: 5,
-    backgroundColor: "lavender",
+    marginHorizontal: 10,
+    marginTop: 8,
+    backgroundColor: '#3a576e',
     borderRadius: 10,
+    borderStyle: 'solid',
+    borderWidth: 1,
+    borderColor: '#dac284',
   },
   image: {
-    height: 120,
+    height: 98,
     flex: 1,
     borderTopLeftRadius: 10,
     borderBottomLeftRadius: 10,
@@ -77,10 +78,12 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 14,
     flexWrap: 'wrap',
+    color: '#e3a92b'
   },
   text: {
     fontStyle: 'italic',
     fontSize: 12,
+    color: '#dac284'
   },
   favorite_image: {
     width: 25,

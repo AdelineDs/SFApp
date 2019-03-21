@@ -31,7 +31,7 @@ const TvShowSearchStackNavigator = createStackNavigator({
 
 const TvTabNavigator = createBottomTabNavigator(
   {
-    TvShowSearch: {
+    Rechercher: {
       screen: TvShowSearchStackNavigator,
       navigationOptions: {
         tabBarIcon: () => {
@@ -44,10 +44,17 @@ const TvTabNavigator = createBottomTabNavigator(
   },
   {
     tabBarOptions: {
-      activeBackgroundColor: '#DDDDDD',
-      inactiveBackgroundColor: '#FFFFFF',
-      showLabel: false,
-      showIcon: true
+      activeBackgroundColor: '#3a576e',
+      inactiveBackgroundColor: '#4e708b',
+      showLabel: true,
+      showIcon: true,
+      labelStyle: {
+        color: '#dac284'
+      },
+      style: {
+        borderTopWidth:1,
+        borderTopColor:'#dac284'
+      },
     }
   }
 )

@@ -129,15 +129,19 @@ class FilmDetail extends React.Component {
   }
 
   _displayFrenchReleaseDate(){
+    let frenchDate = "NC"
     this.state.film.release_dates.results.map(function(result){
       if (result.iso_3166_1 == "FR") {
-        let frenchDate = result.release_dates[0].release_date
-        console.log(moment(new Date(frenchDate)).format('DD/MM/YYYY'));
-        return (
-          <Text style={styles.default_text}>Sortie en France : {moment(new Date(frenchDate)).format('DD/MM/YYYY')}</Text>
-        )
+        let date = result.release_dates[0].release_date
+        frenchDate = moment(new Date(date)).format('DD/MM/YYYY')
       }
-    })}
+    })
+    return (
+      <View style={styles.info_container}>
+        <Text style={styles.em_text}>Sortie en France : </Text>
+        <Text style={styles.default_text}>{frenchDate}</Text>
+      </View>
+    )}
 
   _SeenButton() {
     const { film } = this.state
@@ -257,7 +261,7 @@ class FilmDetail extends React.Component {
 const styles = StyleSheet.create({
   main_container: {
     flex: 1,
-    backgroundColor: '#192733'
+    backgroundColor: '#213242'
   },
   loading_container: {
     position: 'absolute',

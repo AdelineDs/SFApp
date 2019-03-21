@@ -42,9 +42,6 @@ class SeasonItem extends React.Component {
         <View style={styles.content_container}>
           <Text style={styles.title_text} numberOfLines={1}>{season.name}</Text>
           <Text style={styles.text} numberOfLines={1}>{season.episode_count} épisodes</Text>
-          <TouchableOpacity>
-            <Image style={styles.check_image} source={require('../../Images/ic_check_white.png')}/>
-          </TouchableOpacity>
         </View>
       </TouchableOpacity>
     )
@@ -53,19 +50,19 @@ class SeasonItem extends React.Component {
 
 const styles = StyleSheet.create({
   main_container: {
-    width: ((Dimensions.get('window').width)/3)-4,
+    width: ((Dimensions.get('window').width)/3)-6,
     height: 200,
     flexDirection: 'column',
     alignItems: 'center',
-    justifyContent: 'center',
-    margin: 2,
-    backgroundColor: "lavender",
+    justifyContent: 'space-between',
+    margin: 3,
+    backgroundColor: '#3a576e',
     borderRadius: 10,
   },
   image: {
     resizeMode: 'cover',
-    height: 120,
-    width: ((Dimensions.get('window').width)/3)-4,
+    height: 150,
+    width: ((Dimensions.get('window').width)/3)-6,
     borderTopLeftRadius: 10,
     borderTopRightRadius: 10,
   },
@@ -78,10 +75,12 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 14,
     flexWrap: 'wrap',
+    color: '#e3a92b'
   },
   text: {
     fontStyle: 'italic',
     fontSize: 12,
+    color: '#dac284'
   },
   favorite_image: {
     width: 22,

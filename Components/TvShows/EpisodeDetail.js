@@ -26,6 +26,12 @@ class EpisodeDetail extends React.Component {
   //     }
   // }
 
+  static navigationOptions =  ({navigation}) => ({
+       headerStyle: {
+         backgroundColor: '#4e708b'
+       }
+ })
+
   _isMounted = false
 
   constructor(props) {
@@ -148,14 +154,14 @@ class EpisodeDetail extends React.Component {
           />
           <Text style={styles.title_text}>{episode.name}</Text>
           <Text style={styles.description_text}>{episode.overview}</Text>
-          <Text style={styles.default_text}>Note : {episode.vote_average}</Text>
-          <Text style={styles.default_text}>Nombre de votes : {episode.vote_count}</Text>
-          <Text style={styles.section_title}>Casting : </Text>
-          <CastList
-            cast={episode.credits.cast}
-            navigation={this.props.navigation}
-            favoriteList={false}
-          />
+          <View style={styles.info_container}>
+            <Text style={styles.em_text}>Note :</Text>
+            <Text style={styles.default_text}>{episode.vote_average}</Text>
+          </View>
+          <View style={styles.info_container}>
+            <Text style={styles.em_text}>Nombre de votes :</Text>
+            <Text style={styles.default_text}>{episode.vote_count}</Text>
+          </View>
         </ScrollView>
       )
     }
@@ -196,6 +202,7 @@ class EpisodeDetail extends React.Component {
 const styles = StyleSheet.create({
   main_container: {
     flex: 1,
+    backgroundColor: '#213242'
   },
   loading_container: {
     position: 'absolute',
@@ -210,8 +217,7 @@ const styles = StyleSheet.create({
     flex: 1
   },
   image: {
-    height: 169,
-    margin: 5
+    height: 180,
   },
   section_title: {
     fontWeight: 'bold',
@@ -222,21 +228,18 @@ const styles = StyleSheet.create({
   },
   title_text: {
     fontWeight: 'bold',
-    fontSize: 35,
+    fontSize: 28,
     flex: 1,
     flexWrap: 'wrap',
     marginLeft: 5,
     marginRight: 5,
-    marginTop: 10,
-    marginBottom: 0,
-    color: '#000000',
+    marginTop: 5,
+    marginBottom: 5,
+    color: '#e3a92b',
     textAlign: 'center'
   },
   favorite_container: {
     alignItems: 'center',
-  },
-  author_text: {
-    textAlign: 'center',
   },
   production_text: {
     textAlign: 'center',
@@ -245,12 +248,24 @@ const styles = StyleSheet.create({
   },
   description_text: {
     fontStyle: 'italic',
-    color: '#666666',
+    color: '#dac284',
     margin: 5,
     marginBottom: 15,
+    fontSize: 16,
     textAlign: 'justify'
   },
+  info_container:{
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+  },
+  em_text: {
+    color: '#fdd389',
+    fontWeight: 'bold',
+    marginLeft: 5,
+    marginTop: 5,
+  },
   default_text: {
+    color: '#dac284',
     marginLeft: 5,
     marginRight: 5,
     marginTop: 5,
